@@ -11,6 +11,32 @@
     <script src="/theme-init.js"></script>
   </head>
   <body>
+    <div id="splash" class="splash" hidden>
+      <div class="splash-glow" aria-hidden="true"></div>
+      <div class="splash-stage">
+        <svg class="splash-logo" viewBox="0 0 128 128" width="112" height="112" aria-hidden="true">
+          <rect class="sl-tile" width="128" height="128" rx="30" fill="#161618"/>
+          <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path class="sl-key" pathLength="1" d="M72 28 H44 A16 16 0 0 0 28 44 V84 A16 16 0 0 0 44 100 H84 A16 16 0 0 0 100 84 V56" stroke="#f5f5f3" stroke-width="8"/>
+            <path class="sl-arrow" pathLength="1" d="M56 72 L100 28" stroke="#398eff" stroke-width="9"/>
+            <path class="sl-head" pathLength="1" d="M74 28 H100 V54" stroke="#398eff" stroke-width="9"/>
+          </g>
+        </svg>
+        <h1 class="splash-title">GG</h1>
+        <p class="splash-tag" aria-label="Greater experience for Gmail™">
+          <span>Greater</span> <span>experience</span> <span>for</span> <span>Gmail&trade;</span>
+        </p>
+        <p class="splash-desc">Gmail's keyboard shortcuts, sharpened, and a calmer inbox around them. Archive, reply and move on without reaching for the mouse.</p>
+        <ul class="splash-points">
+          <li><span class="glyph" data-glyph="keyboard"></span>Faster shortcuts</li>
+          <li><span class="glyph" data-glyph="panels"></span>A cleaner Gmail</li>
+          <li><span class="glyph" data-glyph="burst"></span>Inbox zero, sooner</li>
+        </ul>
+        <button id="get-started" class="splash-cta" type="button">Get started<span class="glyph" data-glyph="arrow"></span></button>
+        <p class="splash-fine">GG will open Gmail and turn on its keyboard shortcuts for each account you use.</p>
+      </div>
+    </div>
+
     <div class="layout">
       <aside class="sidebar">
         <div class="brand">
@@ -42,7 +68,19 @@
               <p class="note">How GG behaves while you work in Gmail.</p>
             </div>
           </header>
-          <div class="group">
+          <div class="group kill-group">
+            <ul class="rows">
+              <li class="row row-general">
+                <span class="glyph group-glyph" data-glyph="power"></span>
+                <div class="row-text">
+                  <div class="row-label">GG is on</div>
+                  <div class="row-desc">Turns every GG feature on or off at once: shortcuts, nudges and appearance. Gmail goes back to normal while it's off.</div>
+                </div>
+                <label class="switch"><input type="checkbox" id="global" aria-label="Turn GG on or off" /><span class="track"></span></label>
+              </li>
+            </ul>
+          </div>
+          <div class="group gg-dependent">
             <ul class="rows" id="general-rows"></ul>
             <ul class="rows rows-after">
               <li class="row row-general">
@@ -85,7 +123,7 @@
               <p class="note">
                 These run on top of Gmail's own shortcuts. Turn on <b>Keyboard shortcuts</b> in
                 <a href="https://mail.google.com/mail/u/0/#settings/general" target="_blank" rel="noopener">Gmail settings → General</a>.
-                Changes take effect instantly.
+                GG turns it on for you the first time you open each account. Changes take effect instantly.
               </p>
             </div>
             <label class="switch master">
@@ -97,7 +135,7 @@
           <div id="groups"></div>
         </section>
 
-        <footer><button id="reset" type="button"><span class="glyph" data-glyph="undo"></span>Reset to defaults</button></footer>
+        <footer><button id="reset" type="button"><span class="glyph" data-glyph="undo"></span><span id="reset-label">Reset to defaults</span></button></footer>
       </main>
     </div>
     <script type="module" src="./main.ts"></script>

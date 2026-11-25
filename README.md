@@ -26,10 +26,14 @@ Build / package: `bun run build`, `bun run build:firefox`, `bun run zip`, `bun r
 - `utils/shortcuts.ts` – shortcut registry (ids, groups, keys, defaults) shared by all parts.
 - `entrypoints/gmail-shortcuts.content.ts` – the key handler, which runs in the page's MAIN world so synthetic key events reach Gmail with real keyCodes in both browsers.
 - `entrypoints/gmail-bridge.content.ts` – isolated-world bridge that forwards settings from `storage.sync` to the engine.
-- `utils/gmail/` – Gmail DOM helpers, hover-row tracking, and actions (smart Esc, RSVP, compose helpers, copy).
+- `utils/engine/` – the shortcut engine: `bindings.ts` (the shortcut table), `features.ts` (what each shortcut does), `page.ts` (reading Gmail by roles, labels and tooltips), `pointer.ts` (hovered row), `keys.ts` (chords and Gmail key presses), `nudges.ts` (hover hints).
 - `entrypoints/options/` – settings UI.
 
 ## Branding
 
 - `branding/logo.svg` is the source logo (a keyboard key printed with "GG"). After editing it, run `bun branding/render-icons.ts` to regenerate `public/icon/*.png` and `branding/logo-512.png`.
 - Keep the store title in the form "GG – … for Gmail™" and include "Gmail is a trademark of Google LLC." in the description (Google's trademark guidelines allow "for Gmail™" only as a compatibility reference).
+
+## Publishing
+
+See [docs/PUBLISHING.md](docs/PUBLISHING.md) for the Chrome Web Store checklist. Store copy and the privacy policy live in `store/`; `bun run store:assets` renders the promo images and `bun run release:check` builds the upload zips.

@@ -1,4 +1,5 @@
 import '@/assets/appearance.css';
+import { GLOBAL_KEY } from '@/utils/shortcuts';
 import { APPEARANCE_DEFS, APPEARANCE_KEY, normalizeAppearance, type AppearanceSettings } from '@/utils/appearance';
 
 /**
@@ -39,11 +40,16 @@ export default defineContentScript({
       }, 300);
     }).observe(document.documentElement, { childList: true, subtree: true });
 
+    // The kill switch (GLOBAL_KEY false) shows Gmail untouched.
+    const load = async () => {
+      const data = await browser.storage.sync.get([APPEARANCE_KEY, GLOBAL_KEY]);
+      const s = normalizeAppearance(data[APPEARANCE_KEY]);
+      if (data[GLOBAL_KEY] === false) for (const def of APPEARANCE_DEFS) s[def.id] = false;
+      apply(s);
+    };
     browser.storage.onChanged.addListener((changes, area) => {
-      if (area === 'sync' && APPEARANCE_KEY in changes) apply(normalizeAppearance(changes[APPEARANCE_KEY]?.newValue));
+      if (area === 'sync' && (APPEARANCE_KEY in changes || GLOBAL_KEY in changes)) void load();
     });
-
-    const data = await browser.storage.sync.get(APPEARANCE_KEY);
-    apply(normalizeAppearance(data[APPEARANCE_KEY]));
+    await load();
   },
 });

@@ -1,6 +1,7 @@
 import {
   DEFAULT_SETTINGS,
   GENERAL_SETTINGS,
+  GLOBAL_KEY,
   MASTER_KEY,
   SETTINGS_KEY,
   SHORTCUT_GROUPS,
@@ -53,6 +54,7 @@ const GLYPHS: Record<string, string> = {
   pointer: '<path d="M6 3.5 19 10l-5.8 1.8L11 18 6 3.5Z"/>',
   topbar: '<rect x="3.5" y="4.5" width="17" height="15" rx="3"/><path d="M3.5 9h17M6.5 6.8h.01M9 6.8h.01"/>',
   columns: '<rect x="3.5" y="4.5" width="17" height="15" rx="3"/><path d="M9 4.5v15M15 4.5v15"/>',
+  power: '<path d="M12 3.5v8"/><path d="M7 6.5a7.5 7.5 0 1 0 10 0"/>',
   info: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8h.01"/>',
 };
 
@@ -306,7 +308,12 @@ function initTheme(synced: unknown) {
 const TABS = ['general', 'appearance', 'shortcuts'] as const;
 type Tab = (typeof TABS)[number];
 
+const TAB_NAMES: Record<Tab, string> = { general: 'General', appearance: 'Appearance', shortcuts: 'Keyboard Shortcuts' };
+let currentTab: Tab = 'general';
+
 function showTab(tab: Tab) {
+  currentTab = tab;
+  document.getElementById('reset-label')!.textContent = `Reset ${TAB_NAMES[tab]} to defaults`;
   for (const t of TABS) {
     document.getElementById(`tab-${t}`)!.hidden = t !== tab;
   }
@@ -315,7 +322,7 @@ function showTab(tab: Tab) {
     b.classList.toggle('active', active);
     b.setAttribute('aria-selected', String(active));
   });
-  if (location.hash !== `#${tab}`) history.replaceState(null, '', `#${tab}`);
+  if (location.hash !== `#${tab}` && !splashOpen) history.replaceState(null, '', `#${tab}`);
 }
 
 function tabFromHash(): Tab {
@@ -328,6 +335,48 @@ document.querySelectorAll<HTMLButtonElement>('.nav-btn').forEach((b) =>
 );
 window.addEventListener('hashchange', () => showTab(tabFromHash()));
 
+// ---- Little confirmation toast
+function flash(message: string, icon = 'undo') {
+  let t = document.getElementById('flash');
+  if (!t) {
+    t = el('div', 'flash');
+    t.id = 'flash';
+    t.setAttribute('role', 'status');
+    document.body.append(t);
+  }
+  t.replaceChildren(glyph(icon), message);
+  t.classList.remove('on');
+  void t.offsetWidth; // restart the animation
+  t.classList.add('on');
+  clearTimeout(Number(t.dataset.timer));
+  t.dataset.timer = String(setTimeout(() => t!.classList.remove('on'), 2200));
+}
+
+// ---- Welcome splash (opened by the background script on install: options.html#welcome)
+let splashOpen = location.hash === '#welcome';
+
+function runSplash() {
+  const splash = document.getElementById('splash')!;
+  splash.hidden = false;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  requestAnimationFrame(() => splash.classList.add('play'));
+  const cta = document.getElementById('get-started') as HTMLButtonElement;
+  setTimeout(() => cta.focus({ preventScroll: true }), reduce ? 0 : 2600);
+  cta.addEventListener('click', () => {
+    // Start onboarding: Gmail turns on its keyboard shortcuts for the account it opens.
+    void browser.tabs.create({ url: 'https://mail.google.com/mail/u/0/#inbox', active: false });
+    splash.classList.add('leaving');
+    document.documentElement.classList.remove('welcoming');
+    document.querySelector('.layout')!.classList.add('reveal');
+    splashOpen = false;
+    showTab('general');
+    setTimeout(() => {
+      splash.remove();
+      flash('Gmail opened in a new tab to finish setup', 'mail');
+    }, reduce ? 0 : 700);
+  }, { once: true });
+}
+
 async function init() {
   const data = await browser.storage.sync.get([SETTINGS_KEY, MASTER_KEY, APPEARANCE_KEY, THEME_KEY]);
   initTheme(data[THEME_KEY]);
@@ -339,19 +388,47 @@ async function init() {
     shortcutsTab.classList.toggle('disabled', !masterEl.checked);
     void browser.storage.sync.set({ [MASTER_KEY]: masterEl.checked });
   });
+  // ---- Kill switch
+  const globalEl = document.getElementById('global') as HTMLInputElement;
+  const layout = document.querySelector('.layout')!;
+  const applyGlobal = () => layout.classList.toggle('gg-off', !globalEl.checked);
+  globalEl.checked = data[GLOBAL_KEY] !== false;
+  applyGlobal();
+  globalEl.addEventListener('change', () => {
+    applyGlobal();
+    void browser.storage.sync.set({ [GLOBAL_KEY]: globalEl.checked });
+  });
+
+  // ---- Reset: only the section you're looking at.
   document.getElementById('reset')!.addEventListener('click', () => {
-    settings = { ...DEFAULT_SETTINGS };
-    appearance = { ...DEFAULT_APPEARANCE };
-    void save();
-    void saveAppearance();
-    renderGeneral();
-    renderAppearance();
-    renderShortcuts();
+    const tab = currentTab;
+    if (tab === 'general') {
+      for (const s of GENERAL_SETTINGS) delete settings[s.id];
+      void save();
+      globalEl.checked = true;
+      applyGlobal();
+      void browser.storage.sync.set({ [GLOBAL_KEY]: true });
+      setTheme('system');
+      renderGeneral();
+    } else if (tab === 'appearance') {
+      appearance = { ...DEFAULT_APPEARANCE };
+      void saveAppearance();
+      renderAppearance();
+    } else {
+      for (const g of SHORTCUT_GROUPS) for (const s of g.shortcuts) delete settings[s.id];
+      void save();
+      masterEl.checked = true;
+      shortcutsTab.classList.remove('disabled');
+      void browser.storage.sync.set({ [MASTER_KEY]: true });
+      renderShortcuts();
+    }
+    flash(`${TAB_NAMES[tab]} reset to defaults`);
   });
   renderGeneral();
   renderAppearance();
   renderShortcuts();
   showTab(tabFromHash());
+  if (splashOpen) runSplash();
 }
 
 void init();

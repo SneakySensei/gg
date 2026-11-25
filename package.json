@@ -1,8 +1,8 @@
 {
   "name": "gg",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
-  "description": "Better keyboard shortcuts for Gmail",
+  "description": "GG – Greater experience for Gmail™: faster keyboard shortcuts and a cleaner Gmail.",
   "type": "module",
   "scripts": {
     "dev": "wxt",
@@ -12,7 +12,11 @@
     "zip": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",
     "compile": "tsc --noEmit",
-    "postinstall": "wxt prepare"
+    "postinstall": "wxt prepare",
+    "store:assets": "bun store/render-store-assets.ts",
+    "release:check": "bun run compile && wxt zip && wxt zip -b firefox",
+    "submit:dry": "wxt submit --dry-run --chrome-api-version v2 --chrome-zip .output/*-chrome.zip",
+    "submit:chrome": "wxt submit --chrome-api-version v2 --chrome-zip .output/*-chrome.zip"
   },
   "devDependencies": {
     "@resvg/resvg-js": "2.6.2",

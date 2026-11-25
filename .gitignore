@@ -28,3 +28,7 @@ web-ext.config.ts
 # Local env
 .env.local
 .env
+
+# Chrome Web Store / AMO API credentials (never commit)
+.env.submit
+*.service-account.json

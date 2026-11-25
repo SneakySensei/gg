@@ -1,5 +1,5 @@
 import '@/assets/gmail.css';
-import { BRIDGE_SOURCE, MASTER_KEY, SETTINGS_KEY, type BridgeMessage, type ShortcutSettings } from '@/utils/shortcuts';
+import { BRIDGE_SOURCE, GLOBAL_KEY, MASTER_KEY, SETTINGS_KEY, SHORTCUT_IDS, type BridgeMessage, type ShortcutSettings } from '@/utils/shortcuts';
 
 /**
  * Isolated-world content script. The shortcut engine runs in the page's MAIN
@@ -11,12 +11,15 @@ export default defineContentScript({
   runAt: 'document_start',
   async main() {
     const push = async () => {
-      const data = await browser.storage.sync.get([SETTINGS_KEY, MASTER_KEY]);
+      const data = await browser.storage.sync.get([SETTINGS_KEY, MASTER_KEY, GLOBAL_KEY]);
+      const globalOn = data[GLOBAL_KEY] !== false;
+      // With the kill switch off, every feature (nudges and hover selection too) is off.
+      const allOff = Object.fromEntries(SHORTCUT_IDS.map((id) => [id, false])) as ShortcutSettings;
       const msg: BridgeMessage = {
         source: BRIDGE_SOURCE,
         type: 'settings',
-        enabled: data[MASTER_KEY] !== false,
-        settings: (data[SETTINGS_KEY] as ShortcutSettings) ?? {},
+        enabled: globalOn && data[MASTER_KEY] !== false,
+        settings: globalOn ? ((data[SETTINGS_KEY] as ShortcutSettings) ?? {}) : allOff,
       };
       window.postMessage(msg, window.location.origin);
     };
@@ -28,7 +31,7 @@ export default defineContentScript({
     });
 
     browser.storage.onChanged.addListener((changes, area) => {
-      if (area === 'sync' && (SETTINGS_KEY in changes || MASTER_KEY in changes)) void push();
+      if (area === 'sync' && (SETTINGS_KEY in changes || MASTER_KEY in changes || GLOBAL_KEY in changes)) void push();
     });
 
     await push();

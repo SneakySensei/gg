@@ -3,3 +3,4 @@ try {
   var t = localStorage.getItem('gmailPlusTheme');
   if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
 } catch (e) {}
+if (location.hash === '#welcome') document.documentElement.classList.add('welcoming');

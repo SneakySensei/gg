@@ -5,6 +5,10 @@
 
 export const SETTINGS_KEY = 'gmailPlusShortcutSettings';
 export const MASTER_KEY = 'gmailPlusShortcutsEnabled';
+/** Global kill switch: false turns off every GG feature (shortcuts, nudges, appearance). */
+export const GLOBAL_KEY = 'ggEnabled';
+/** storage.local: accounts GG has already turned Gmail's keyboard shortcuts on for. */
+export const ONBOARDED_KEY = 'ggOnboardedAccounts';
 
 export const SHORTCUT_IDS = [
   // General settings
@@ -149,7 +153,7 @@ export const SHORTCUT_GROUPS: ShortcutGroup[] = [
       { id: 'TOGGLE_UNREAD', label: 'Toggle Read/Unread', keys: 'U', description: 'Toggle the read or unread status of the selected email.' },
       { id: 'STAR_AND_ARCHIVE', label: 'Star and Archive', keys: 'Shift + S', description: 'Star and archive the selected or hovered email in one action.' },
       { id: 'ARCHIVE_MARKS_READ', label: 'Archive marks as read', keys: 'E', description: 'When you archive with E, unread emails are marked as read first.' },
-      { id: 'ENTER_REPLY', label: 'Reply to email when viewing', keys: 'Enter', description: 'Reply all when viewing an email (expands a collapsed message first).' },
+      { id: 'ENTER_REPLY', label: 'Reply to email when viewing', keys: 'Enter', description: 'Reply all to the email you are viewing.' },
       { id: 'REPLY_TO_INTRO', label: 'Reply to intro', keys: `${MOD} + Shift + I`, description: 'Reply to an intro email with the introducer moved to BCC.' },
       { id: 'MOVE_INBOX', label: 'Move to Inbox', keys: 'V', description: 'Move selected email to Inbox when in All Mail, Sent, etc.' },
       { id: 'MULTI_SELECT', label: 'Multi-select emails', keys: 'Shift + ↑↓', description: 'Extend email selection up or down with Shift.' },
