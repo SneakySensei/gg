@@ -25,19 +25,19 @@
         </div>
         <nav>
           <ul class="nav" role="tablist">
-            <li><button class="nav-btn" role="tab" data-tab="general" aria-controls="tab-general">General</button></li>
-            <li><button class="nav-btn" role="tab" data-tab="appearance" aria-controls="tab-appearance">Appearance</button></li>
-            <li><button class="nav-btn" role="tab" data-tab="shortcuts" aria-controls="tab-shortcuts">Keyboard Shortcuts</button></li>
+            <li><button class="nav-btn" role="tab" data-tab="general" aria-controls="tab-general"><span class="glyph" data-glyph="sliders"></span>General</button></li>
+            <li><button class="nav-btn" role="tab" data-tab="appearance" aria-controls="tab-appearance"><span class="glyph" data-glyph="panels"></span>Appearance</button></li>
+            <li><button class="nav-btn" role="tab" data-tab="shortcuts" aria-controls="tab-shortcuts"><span class="glyph" data-glyph="keyboard"></span>Keyboard Shortcuts</button></li>
           </ul>
         </nav>
-        <p class="sidebar-foot">Fewer clicks. Faster inbox zero.</p>
+        <p class="sidebar-foot"><span class="glyph" data-glyph="burst"></span>Fewer clicks. Faster inbox zero.</p>
       </aside>
 
       <main>
         <section id="tab-general" class="tab" role="tabpanel" hidden>
           <header class="tab-head">
             <div>
-              <p class="kicker">01</p>
+              <span class="tab-icon glyph" data-glyph="sliders"></span>
               <h2>General</h2>
               <p class="note">How GG behaves while you work in Gmail.</p>
             </div>
@@ -51,9 +51,9 @@
                   <div class="row-desc">System follows your computer's light or dark mode.</div>
                 </div>
                 <div class="segmented" role="radiogroup" aria-labelledby="theme-label">
-                  <button type="button" role="radio" data-theme-choice="system">System</button>
-                  <button type="button" role="radio" data-theme-choice="light">Light</button>
-                  <button type="button" role="radio" data-theme-choice="dark">Dark</button>
+                  <button type="button" role="radio" data-theme-choice="system"><span class="glyph" data-glyph="monitor"></span>System</button>
+                  <button type="button" role="radio" data-theme-choice="light"><span class="glyph" data-glyph="sun"></span>Light</button>
+                  <button type="button" role="radio" data-theme-choice="dark"><span class="glyph" data-glyph="moon"></span>Dark</button>
                 </div>
               </li>
             </ul>
@@ -63,13 +63,13 @@
         <section id="tab-appearance" class="tab" role="tabpanel" hidden>
           <header class="tab-head">
             <div>
-              <p class="kicker">02</p>
+              <span class="tab-icon glyph" data-glyph="panels"></span>
               <h2>Appearance</h2>
               <p class="note">Pick a starting point, then fine-tune individual parts of Gmail. Changes apply instantly.</p>
             </div>
           </header>
           <section class="group presets-group">
-            <h3 class="eyebrow" id="presets-label">Presets</h3>
+            <h3 class="eyebrow" id="presets-label"><span class="glyph" data-glyph="spark"></span>Presets</h3>
             <p class="group-desc presets-desc">A preset is a starting point. Every switch below still works on top of it.</p>
             <div class="presets" id="presets" role="radiogroup" aria-labelledby="presets-label"></div>
             <p class="preset-status" id="preset-status"></p>
@@ -80,7 +80,7 @@
         <section id="tab-shortcuts" class="tab" role="tabpanel" hidden>
           <header class="tab-head">
             <div>
-              <p class="kicker">03</p>
+              <span class="tab-icon glyph" data-glyph="keyboard"></span>
               <h2>Keyboard Shortcuts</h2>
               <p class="note">
                 These run on top of Gmail's own shortcuts. Turn on <b>Keyboard shortcuts</b> in
@@ -97,7 +97,7 @@
           <div id="groups"></div>
         </section>
 
-        <footer><button id="reset" type="button">Reset to defaults</button></footer>
+        <footer><button id="reset" type="button"><span class="glyph" data-glyph="undo"></span>Reset to defaults</button></footer>
       </main>
     </div>
     <script type="module" src="./main.ts"></script>

@@ -35,6 +35,50 @@ function el<K extends keyof HTMLElementTagNameMap>(tag: K, cls?: string, text?: 
   return e;
 }
 
+// ---- Glyphs: small inline stroke icons (no icon fonts or remote assets).
+const GLYPHS: Record<string, string> = {
+  sliders: '<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>',
+  panels: '<rect x="3.5" y="4.5" width="17" height="15" rx="3"/><path d="M3.5 9.5h17M9 9.5v10"/>',
+  keyboard: '<rect x="2.5" y="6" width="19" height="12" rx="3"/><path d="M6.5 10h.01M10 10h.01M14 10h.01M17.5 10h.01M8 14h8"/>',
+  burst: '<path d="M7 17 17 7M9.5 7H17v7.5"/>',
+  spark: '<path d="M12 3.5v4M12 16.5v4M3.5 12h4M16.5 12h4M6.5 6.5l2.2 2.2M15.3 15.3l2.2 2.2M6.5 17.5l2.2-2.2M15.3 8.7l2.2-2.2"/>',
+  monitor: '<rect x="3" y="4.5" width="18" height="12" rx="2.5"/><path d="M9 20h6M12 16.5V20"/>',
+  sun: '<circle cx="12" cy="12" r="3.5"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/>',
+  moon: '<path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10Z"/>',
+  undo: '<path d="M4 5v5h5"/><path d="M4.6 14.5A8 8 0 1 0 6.3 6.3L4 10"/>',
+  arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7.5 8.5 6 8.5-6"/>',
+  pen: '<path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4Z"/><path d="m13.5 6.5 4 4"/>',
+  calendar: '<rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4M9 15l2 2 4-4"/>',
+  pointer: '<path d="M6 3.5 19 10l-5.8 1.8L11 18 6 3.5Z"/>',
+  topbar: '<rect x="3.5" y="4.5" width="17" height="15" rx="3"/><path d="M3.5 9h17M6.5 6.8h.01M9 6.8h.01"/>',
+  columns: '<rect x="3.5" y="4.5" width="17" height="15" rx="3"/><path d="M9 4.5v15M15 4.5v15"/>',
+  info: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8h.01"/>',
+};
+
+function glyph(name: string, cls = 'glyph') {
+  const span = el('span', cls);
+  fillGlyph(span, name);
+  return span;
+}
+
+function fillGlyph(span: HTMLElement, name: string) {
+  span.setAttribute('aria-hidden', 'true');
+  span.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">${GLYPHS[name] ?? GLYPHS.keyboard}</svg>`;
+}
+
+document.querySelectorAll<HTMLElement>('[data-glyph]').forEach((s) => fillGlyph(s, s.dataset.glyph!));
+
+const GROUP_GLYPHS: Record<string, string> = {
+  navigation: 'arrow',
+  emailActions: 'mail',
+  compose: 'pen',
+  rsvp: 'calendar',
+  hoverActions: 'pointer',
+  'Top bar': 'topbar',
+  Layout: 'columns',
+};
+
 function toggle(checked: boolean, onChange: (v: boolean) => void, label: string) {
   const wrap = el('label', 'switch');
   const input = el('input');
@@ -85,6 +129,7 @@ function renderShortcuts() {
     const head = el('div', 'group-head');
     const titles = el('div');
     titles.append(el('h3', undefined, group.label));
+    head.append(glyph(GROUP_GLYPHS[group.id] ?? 'keyboard', 'glyph group-glyph'));
     if (group.description) titles.append(el('p', 'group-desc', group.description));
 
     const allOn = group.shortcuts.every((s) => isEnabled(settings, s.id));
@@ -188,13 +233,14 @@ function renderAppearance() {
     });
     presetsEl.append(card);
   }
-  presetStatusEl.textContent = active === 'custom' ? 'Custom: your switches no longer match a preset.' : '';
+  presetStatusEl.replaceChildren();
+  if (active === 'custom') presetStatusEl.append(glyph('info'), 'Custom: your switches no longer match a preset.');
 
   appearanceGroupsEl.replaceChildren();
   for (const group of APPEARANCE_GROUPS) {
     const section = el('section', 'group');
     const head = el('div', 'group-head');
-    head.append(el('h3', undefined, group.label));
+    head.append(glyph(GROUP_GLYPHS[group.label] ?? 'panels', 'glyph group-glyph'), el('h3', undefined, group.label));
     section.append(head);
     const list = el('ul', 'rows');
     for (const s of group.switches) {
