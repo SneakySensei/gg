@@ -1,0 +1,67 @@
+/*
+ * Appearance switches. Each rule only applies while its class is on <html>.
+ *
+ * Gmail's class names (.zo, .XyWBof, .bAw…) are obfuscated build output and can
+ * change when Google ships a new build. Every rule therefore pairs the class
+ * selector with a semantic fallback (role / aria-label / data-tooltip), so one
+ * of them keeps working if the other breaks. Label fallbacks are English-only.
+ */
+
+/* Support (?) button in the top bar */
+html.gp-hide-support .bGJ > .zo,
+html.gp-hide-support [data-tooltip='Support']:has(> a[aria-label='Support']),
+html.gp-hide-support header a[role='button'][aria-label='Support'] {
+  display: none !important;
+}
+
+/*
+ * Top-bar buttons sit inside wrapper divs that are direct children of the
+ * top bar (.bGJ). Hiding the whole wrapper, not just the button, lets the
+ * remaining buttons close the gap instead of leaving empty space.
+ */
+
+/* Try Gemini button in the top bar */
+html.gp-hide-gemini .bGJ > :has(button.XyWBof),
+html.gp-hide-gemini .bGJ > :has(button[aria-label*='Gemini']),
+html.gp-hide-gemini button.XyWBof,
+html.gp-hide-gemini header button[aria-label*='Gemini'] {
+  display: none !important;
+}
+
+/* Upgrade / storage prompt: tagged by script (no stable class), see appearance.content */
+html.gp-hide-upgrade .bGJ > :has([data-gp-upgrade]),
+html.gp-hide-upgrade [data-gp-upgrade] {
+  display: none !important;
+}
+
+/* Right side panel (Calendar, Keep, Tasks, Contacts) and the column holding it */
+html.gp-hide-right-panel .bAw:has(> [role='complementary']),
+html.gp-hide-right-panel div[role='complementary'].brC-aT5-aOt-Jw,
+html.gp-hide-right-panel div[role='complementary'][aria-label='Side panel'] {
+  display: none !important;
+}
+
+/*
+ * Leave a 16px gutter at the right edge of the row that holds the email
+ * panel and the right-hand column (side panel / Quick settings drawer).
+ * Nesting: row > .nH > .aUx > .bAw > [role=complementary]. Padding the row,
+ * not the column, keeps the gutter at the far right whether or not Quick
+ * settings is open.
+ */
+html.gp-hide-right-panel :has(> .nH > .aUx > .bAw > [role='complementary']) {
+  padding-right: 16px !important;
+  box-sizing: border-box !important;
+}
+
+/* Left app bar: the main menu (☰) button beside the Gmail logo.
+   data-ogmb is a fixed Google bar attribute (not a build hash, not translated). */
+html.gp-hide-left-app-bar [role='button'][data-ogmb='1'],
+html.gp-hide-left-app-bar .gb_fe > .gb_od[aria-label='Main menu'] {
+  display: none !important;
+}
+
+/* With the menu button gone, keep the Gmail logo 16px off the left edge. */
+html.gp-hide-left-app-bar :has(> [role='button'][data-ogmb='1']) > .gb_hd,
+html.gp-hide-left-app-bar :has(> [role='button'][data-ogmb='1']) > :has(a[aria-label='Gmail'][href='#inbox']) {
+  margin-left: 16px !important;
+}

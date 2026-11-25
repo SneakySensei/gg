@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GG · Settings</title>
+    <link rel="icon" href="/icon/32.png" />
+    <meta name="manifest.open_in_tab" content="true" />
+    <link rel="stylesheet" href="./style.css" />
+    <!-- Applies the saved theme before first paint (no flash). -->
+    <script src="/theme-init.js"></script>
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <h1 class="brand"><img class="brand-logo" src="/icon/96.png" alt="" width="28" height="28" /><span>GG</span></h1>
+        <nav>
+          <ul class="nav" role="tablist">
+            <li><button class="nav-btn" role="tab" data-tab="general" aria-controls="tab-general">General</button></li>
+            <li><button class="nav-btn" role="tab" data-tab="appearance" aria-controls="tab-appearance">Appearance</button></li>
+            <li><button class="nav-btn" role="tab" data-tab="shortcuts" aria-controls="tab-shortcuts">Keyboard Shortcuts</button></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main>
+        <section id="tab-general" class="tab" role="tabpanel" hidden>
+          <header class="tab-head">
+            <div>
+              <h2>General</h2>
+              <p class="note">How GG behaves while you work in Gmail.</p>
+            </div>
+          </header>
+          <div class="group">
+            <ul class="rows" id="general-rows"></ul>
+            <ul class="rows rows-after">
+              <li class="row row-general">
+                <div class="row-text">
+                  <div class="row-label" id="theme-label">Settings page theme</div>
+                  <div class="row-desc">System follows your computer's light or dark mode.</div>
+                </div>
+                <div class="segmented" role="radiogroup" aria-labelledby="theme-label">
+                  <button type="button" role="radio" data-theme-choice="system">System</button>
+                  <button type="button" role="radio" data-theme-choice="light">Light</button>
+                  <button type="button" role="radio" data-theme-choice="dark">Dark</button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="tab-appearance" class="tab" role="tabpanel" hidden>
+          <header class="tab-head">
+            <div>
+              <h2>Appearance</h2>
+              <p class="note">Pick a starting point, then fine-tune individual parts of Gmail. Changes apply instantly.</p>
+            </div>
+          </header>
+          <section class="group presets-group">
+            <h3 class="eyebrow" id="presets-label">Presets</h3>
+            <p class="group-desc presets-desc">A preset is a starting point. Every switch below still works on top of it.</p>
+            <div class="presets" id="presets" role="radiogroup" aria-labelledby="presets-label"></div>
+            <p class="preset-status" id="preset-status"></p>
+          </section>
+          <div id="appearance-groups"></div>
+        </section>
+
+        <section id="tab-shortcuts" class="tab" role="tabpanel" hidden>
+          <header class="tab-head">
+            <div>
+              <h2>Keyboard Shortcuts</h2>
+              <p class="note">
+                These run on top of Gmail's own shortcuts. Turn on <b>Keyboard shortcuts</b> in
+                <a href="https://mail.google.com/mail/u/0/#settings/general" target="_blank" rel="noopener">Gmail settings → General</a>.
+                Changes take effect instantly.
+              </p>
+            </div>
+            <label class="switch master">
+              <input type="checkbox" id="master" />
+              <span class="track"></span>
+              <span class="switch-label">All shortcuts</span>
+            </label>
+          </header>
+          <div id="groups"></div>
+        </section>
+
+        <footer><button id="reset" type="button">Reset to defaults</button></footer>
+      </main>
+    </div>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
