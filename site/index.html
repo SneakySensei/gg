@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GG – Greater experience for Gmail™</title>
-<meta name="description" content="GG – Greater experience for Gmail™ is a free browser extension: keyboard shortcuts for the email under your pointer, shortcut nudges and a cleaner look. Runs only in your browser.">
+<meta name="description" content="GG – Greater experience for Gmail™: a free browser extension with keyboard shortcuts for the email under your pointer, shortcut nudges and a cleaner look. Runs only in your browser.">
 <meta name="page-type" content="software">
 <meta name="site-kind" content="software">
 <meta name="theme-color" content="#161618">
@@ -16,356 +16,208 @@
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 <link rel="icon" href="assets/32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/128.png">
-<script>document.documentElement.classList.add('m-enter')</script>
-<link rel="stylesheet" href="assets/site.css">
-<style>
-/* ---------- Hero */
-.hero { min-height: calc(100svh - 64px); display: grid; place-items: center; position: relative; overflow: hidden; padding: 48px 0 64px; }
-.hero-glow { position: absolute; left: 50%; top: 40%; width: min(900px, 140vw); aspect-ratio: 1; translate: -50% -50%;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--blue) 20%, transparent), transparent 70%); opacity: 0; scale: .4; pointer-events: none; }
-.hero-in { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; }
-.logo-btn { border: 0; background: none; padding: 0; cursor: pointer; border-radius: 34px; position: relative; }
-.logo { width: 156px; height: 156px; overflow: visible; filter: drop-shadow(0 22px 34px rgba(22,22,24,.32)); }
-.lg-key, .lg-shaft, .lg-head { stroke-dasharray: 1; stroke-dashoffset: 1; }
-.lg-streak { opacity: 0; }
-.burst { position: absolute; left: 78%; top: 22%; width: 0; height: 0; pointer-events: none; }
-.burst i { position: absolute; left: -3px; top: -3px; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); opacity: 0; }
-.ring { position: absolute; left: 50%; top: 50%; width: 156px; height: 156px; translate: -50% -50%; border-radius: 40px; border: 2px solid var(--blue); opacity: 0; pointer-events: none; }
-.hero h1 { margin: 34px 0 0; font-size: clamp(40px, 6.4vw, 76px); line-height: 1.02; font-weight: 700; letter-spacing: -.025em; max-width: 17ch; }
-.logo rect { stroke: color-mix(in srgb, var(--text) 12%, transparent); stroke-width: 1.5; }
-.hero h1 .w { display: inline-block; }
-.hero h1 .blue { color: var(--accent-text); }
-.hero .lede { margin: 20px 0 0; font-size: clamp(17px, 2vw, 20px); color: var(--muted); max-width: 52ch; }
-.hero .acts { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 32px; }
-.hero .fine { margin: 16px 0 0; font-size: 14px; color: var(--muted); }
-.hero .keys { display: flex; gap: 8px; margin-top: 30px; flex-wrap: wrap; justify-content: center; }
-.hero .keys kbd { font-size: 15px; }
-
-.m .hero :is(.logo-btn, h1 .w, .lede, .acts, .fine, .keys kbd) { opacity: 0; }
-.m.go .hero-glow { animation: glow 1.6s var(--ease) .2s forwards; }
-.m.go .logo-btn { animation: pop .75s var(--spring) .1s forwards; }
-.m.go .lg-key { animation: draw .9s cubic-bezier(.65,0,.35,1) .45s forwards; }
-.m.go .lg-streak { animation: streak .42s cubic-bezier(.5,0,.2,1) 1.12s; }
-.m.go .lg-shaft { animation: draw .26s cubic-bezier(.6,0,.2,1) 1.15s forwards; }
-.m.go .lg-head { animation: draw .24s cubic-bezier(.2,0,.2,1) 1.36s forwards; }
-.m.go .burst i { animation: spark .7s var(--ease) 1.45s; }
-.m.go .logo { animation: press .42s cubic-bezier(.3,0,.3,1) 1.62s; }
-.m.go .ring { animation: ring .8s var(--ease) 1.7s; }
-.m.go .hero h1 .w { animation: word .7s var(--ease) forwards; animation-delay: calc(1.8s + var(--i) * 70ms); }
-.m.go .hero .lede { animation: rise .7s var(--ease) 2.25s forwards; }
-.m.go .hero .acts { animation: rise .7s var(--spring) 2.4s forwards; }
-.m.go .hero .fine { animation: fade .6s ease 2.6s forwards; }
-.m.go .hero .keys kbd { animation: keyin .5s var(--spring) forwards; animation-delay: calc(2.7s + var(--i) * 60ms); }
-.logo-btn.again .logo { animation: press .42s cubic-bezier(.3,0,.3,1); }
-.logo-btn.again .ring { animation: ring .8s var(--ease) .1s; }
-.logo-btn.again .burst i { animation: spark .7s var(--ease) .05s; }
-kbd.hit { animation: keyhit .3s var(--spring) !important; opacity: 1 !important; }
-
-@keyframes glow { to { opacity: 1; scale: 1; } }
-@keyframes pop { from { opacity: 0; transform: scale(.5) rotate(-12deg); } to { opacity: 1; transform: none; } }
-@keyframes draw { to { stroke-dashoffset: 0; } }
-@keyframes streak { 0% { opacity: 0; transform: translate(-14px, 14px); } 30% { opacity: .9; } 100% { opacity: 0; transform: translate(20px, -20px); } }
-@keyframes spark { 0% { opacity: 1; transform: translate(0,0) scale(1); } 100% { opacity: 0; transform: translate(var(--x), var(--y)) scale(.3); } }
-@keyframes press { 0%, 100% { transform: none; } 35% { transform: translateY(7px) scale(.93); } 70% { transform: translateY(-3px) scale(1.02); } }
-@keyframes ring { 0% { opacity: .7; scale: .9; } 100% { opacity: 0; scale: 1.5; } }
-@keyframes word { from { opacity: 0; transform: translateY(.5em); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
-@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-@keyframes fade { to { opacity: 1; } }
-@keyframes keyin { from { opacity: 0; transform: translateY(10px) scale(.8); } to { opacity: 1; transform: none; } }
-@keyframes keyhit { 40% { transform: translateY(3px) scale(.92); border-bottom-width: 1px; background: var(--blue); color: #fff; } }
-
-/* ---------- Feature sections */
-.feat { min-height: 100svh; display: grid; align-items: center; padding: 96px 0; border-top: 1px solid var(--line); }
-.feat .wrap { display: grid; grid-template-columns: 1fr 1.15fr; gap: 64px; align-items: center; }
-.feat.flip .copy { order: 2; }
-.eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--accent-text); margin: 0 0 14px; }
-.eyebrow svg { width: 18px; height: 18px; }
-.feat h2 { margin: 0; font-size: clamp(32px, 4vw, 50px); line-height: 1.06; letter-spacing: -.02em; font-weight: 700; }
-.feat p.body { color: var(--muted); margin: 18px 0 0; max-width: 46ch; }
-.list { list-style: none; padding: 0; margin: 26px 0 0; display: grid; gap: 10px; }
-.list li { display: flex; align-items: center; gap: 12px; font-size: 15.5px; }
-.list li kbd { flex: none; }
-.list .kgroup { display: inline-flex; gap: 4px; min-width: 98px; }
-
-/* Mock app frame */
-.app { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); overflow: hidden; position: relative; }
-.bar { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
-.bar .dots { display: flex; gap: 6px; }
-.bar .dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
-.bar .search { flex: 1; height: 30px; border-radius: 999px; background: var(--surface-2); display: flex; align-items: center; padding: 0 12px; font-size: 13px; color: var(--muted); }
-
-/* Demo 1: archive with E */
-.rows { position: relative; height: calc(6 * 54px + 84px); overflow: hidden; }
-.row { display: grid; grid-template-columns: 18px 130px 1fr auto; gap: 14px; align-items: center; padding: 0 18px; height: 54px; border-bottom: 1px solid var(--line); font-size: 14px;
-  transition: background .2s ease; }
-.row .chk { width: 15px; height: 15px; border: 1.5px solid var(--muted); border-radius: 4px; opacity: .6; }
-.row b { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.row span { color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.row time { color: var(--muted); font-size: 12.5px; }
-.row.hov { background: var(--row-hover); }
-.row.out { animation: rowout .55s cubic-bezier(.6,0,.3,1) forwards; }
-.row.in { animation: rowin .5s var(--ease); }
-@keyframes rowout { 0% { transform: none; opacity: 1; } 100% { transform: translateX(60%); opacity: 0; height: 0; } }
-@keyframes rowin { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
-.cursor { position: absolute; width: 20px; height: 20px; left: 0; top: 0; pointer-events: none; z-index: 3; transition: transform .7s var(--ease); filter: drop-shadow(0 2px 3px rgba(0,0,0,.3)); }
-.presskey { position: absolute; right: 18px; bottom: 18px; font-size: 22px; z-index: 3; }
-.presskey kbd { font-size: 22px; min-width: 52px; height: 52px; opacity: 0; transform: scale(.7); transition: opacity .2s, transform .25s var(--spring); }
-.presskey kbd.show { opacity: 1; transform: none; }
-.presskey kbd.down { transform: translateY(4px) scale(.94); border-bottom-width: 1px; background: var(--blue); color: #fff; border-color: var(--blue); }
-.toast { position: absolute; left: 18px; bottom: 18px; background: var(--ink); color: var(--paper); font-size: 13.5px; padding: 10px 14px; border-radius: 10px; opacity: 0; transform: translateY(10px); transition: .3s var(--ease); z-index: 3; }
-.toast.show { opacity: 1; transform: none; }
-.toast u { color: #8cbcff; text-decoration: none; margin-left: 10px; font-weight: 600; }
-
-/* Demo 2: nudges */
-.tools { display: flex; gap: 6px; padding: 18px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
-.tool { position: relative; width: 44px; height: 44px; border-radius: 50%; border: 0; background: transparent; color: var(--muted); display: grid; place-items: center; cursor: pointer; transition: background .15s; }
-.tool svg { width: 22px; height: 22px; }
-.tool:hover, .tool.hov { background: var(--surface-2); color: var(--text); }
-.tip { position: absolute; top: calc(100% + 10px); left: 50%; translate: -50% 0; white-space: nowrap; background: var(--ink); color: var(--paper); font-size: 13px; padding: 7px 10px; border-radius: 8px;
-  display: flex; align-items: center; gap: 8px; opacity: 0; transform: translateY(-6px) scale(.96); transition: .22s var(--spring); pointer-events: none; z-index: 4; box-shadow: 0 8px 20px -8px rgba(0,0,0,.5); }
-.tip kbd { background: #2a2a2e; color: #fff; border-color: #3a3a40; font-size: 12px; }
-.tool:hover .tip, .tool.hov .tip, .tool:focus-visible .tip { opacity: 1; transform: none; }
-.tools .tool:first-child .tip { left: 0; translate: 0 0; }
-.reading { padding: 22px 22px 120px; }
-.reading h3 { margin: 0 0 6px; font-size: 19px; }
-.reading .meta { color: var(--muted); font-size: 13px; margin-bottom: 16px; }
-.reading .ln { height: 10px; border-radius: 5px; background: var(--surface-2); margin: 10px 0; }
-
-/* Demo 3: appearance */
-.seg { display: inline-flex; padding: 4px; border-radius: 999px; background: var(--surface-2); margin-top: 26px; position: relative; }
-.seg button { position: relative; z-index: 1; border: 0; background: none; font: 600 15px/1 var(--font); color: var(--muted); min-height: 44px; padding: 0 22px; border-radius: 999px; cursor: pointer; transition: color .2s; }
-.seg button[aria-pressed="true"] { color: var(--text); }
-.seg .pill { position: absolute; top: 4px; bottom: 4px; left: 4px; border-radius: 999px; background: var(--surface); box-shadow: 0 2px 8px -2px rgba(0,0,0,.25); transition: transform .4s var(--spring), width .4s var(--spring); }
-.gm { display: grid; grid-template-columns: auto 1fr auto; min-height: 380px; }
-.gm-top { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid var(--line); }
-.gm-top .menu, .gm-top .chip { transition: opacity .35s var(--ease), max-width .45s var(--ease), padding .45s var(--ease), margin .45s; overflow: hidden; white-space: nowrap; }
-.gm-top .menu { width: 34px; max-width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; color: var(--muted); }
-.gm-top .menu svg { width: 20px; height: 20px; }
-.gm-top .mark { font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 6px; }
-.gm-top .mark i { width: 22px; height: 16px; border: 2px solid var(--muted); border-radius: 3px; }
-.gm-top .search { flex: 1; height: 34px; border-radius: 999px; background: var(--surface-2); }
-.gm-top .chip { max-width: 140px; height: 30px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line); font-size: 12.5px; display: flex; align-items: center; color: var(--muted); }
-.gm-side { width: 150px; padding: 14px; border-right: 1px solid var(--line); display: grid; align-content: start; gap: 8px; }
-.gm-side .compose { height: 40px; border-radius: 14px; background: color-mix(in srgb, var(--blue) 18%, var(--surface)); }
-.gm-side .ln { height: 10px; border-radius: 5px; background: var(--surface-2); }
-.gm-list { padding: 8px 0; }
-.gm-list .row { height: 46px; grid-template-columns: 110px 1fr; }
-.gm-right { width: 52px; border-left: 1px solid var(--line); display: grid; align-content: start; justify-items: center; gap: 14px; padding-top: 16px; transition: width .45s var(--ease), opacity .3s; overflow: hidden; }
-.gm-right i { width: 22px; height: 22px; border-radius: 6px; }
-.gm-right i:nth-child(1) { background: #4a8af4; } .gm-right i:nth-child(2) { background: #f6bf26; } .gm-right i:nth-child(3) { background: #1fa463; } .gm-right i:nth-child(4) { background: #6b8ba4; }
-.gm.min .gm-top .menu, .gm.min .gm-top .chip { opacity: 0; max-width: 0; padding: 0; margin: 0 -5px; border-width: 0; }
-.gm.min .gm-right { width: 0; opacity: 0; border-width: 0; }
-
-/* Privacy band */
-.dark { background: var(--ink); color: var(--paper); border-top: 0; }
-.dark p.body { color: #b9b9bf; }
-.dark .eyebrow { color: #8cbcff; }
-.facts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.fact { border: 1px solid #2e2e33; border-radius: var(--radius); padding: 22px; background: #1c1c1f; transition: transform .25s var(--ease), border-color .25s; }
-.fact:hover { transform: translateY(-2px); border-color: #3d3d44; }
-.fact svg { width: 26px; height: 26px; color: var(--blue); }
-.fact b { display: block; font-size: 22px; margin-top: 14px; }
-.fact span { color: #a3a3aa; font-size: 14.5px; }
-.dark a { color: #8cbcff; }
-
-/* Close */
-.close { min-height: 100svh; display: grid; place-items: center; text-align: center; padding: 96px 0; border-top: 1px solid var(--line); }
-.close h2 { font-size: clamp(36px, 5vw, 64px); margin: 28px 0 0; letter-spacing: -.025em; line-height: 1.05; }
-.close p { color: var(--muted); margin: 16px auto 0; max-width: 46ch; }
-.close .acts { margin-top: 30px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-.close img { width: 88px; height: 88px; margin: 0 auto; }
-
-@media (max-width: 900px) {
-  .feat .wrap { grid-template-columns: 1fr; gap: 40px; }
-  .feat.flip .copy { order: 0; }
-}
-@media (max-width: 560px) {
-  body { font-size: 16px; }
-  .logo, .ring { width: 116px; height: 116px; }
-  .row { grid-template-columns: 16px 96px 1fr; padding: 0 14px; gap: 10px; }
-  .row time { display: none; }
-  .gm-side { display: none; }
-  .gm-top .chip:nth-of-type(n+2) { display: none; }
-  .gm-top .chip { max-width: none; }
-  .gm { grid-template-columns: 1fr auto; }
-  .gm-list .row { grid-template-columns: 84px 1fr; }
-  .facts { grid-template-columns: 1fr; }
-  .hero .acts .btn, .close .acts .btn { width: 100%; }
-  .hero .acts, .close .acts { width: 100%; }
-  .feat { padding: 72px 0; }
-}
-
-/* Demos pause */
-.pause { position: absolute; top: 9px; right: 10px; z-index: 5; min-height: 32px; min-width: 32px; border: 0; border-radius: 999px; background: var(--surface-2); color: var(--muted); cursor: pointer; display: grid; place-items: center; }
-.pause svg { width: 14px; height: 14px; }
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
-  .m .hero :is(.logo-btn, h1 .w, .lede, .acts, .fine, .keys kbd) { opacity: 1; }
-  .hero-glow { opacity: 1; scale: 1; }
-  .lg-key, .lg-shaft, .lg-head { stroke-dashoffset: 0; }
-  .presskey kbd { opacity: 1; transform: none; }
-}
-</style>
+<script>document.documentElement.classList.add('js', 'm-enter')</script>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css">
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
-<!-- GG landing page. Kind: software. Hand-built static page (no build step), brand: ink #161618, paper #f5f5f3, blue #398eff. -->
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="nav">
+<header class="top">
   <div class="wrap">
-    <a class="brand" href="./" aria-label="GG home"><img src="assets/logo.svg" alt="" width="30" height="30">GG</a>
-    <nav class="nav-links" aria-label="Main">
-      <a href="#shortcuts">Shortcuts</a>
-      <a href="#nudges">Nudges</a>
-      <a href="#look">Appearance</a>
-      <a href="privacy.html">Privacy</a>
-      <a class="btn small js-store" href="#install">Add to Chrome</a>
-    </nav>
+    <a class="brand" href="./" aria-label="GG home">
+      <img class="brand-logo" src="assets/logo.svg" alt="" width="36" height="36">
+      <span class="brand-text"><span class="brand-name">GG</span><span class="brand-tag">Greater experience for Gmail™</span></span>
+    </a>
+    <ul class="nav" aria-label="Main">
+      <li><a class="nav-btn" href="#shortcuts"><span class="glyph" data-glyph="keyboard"></span>Shortcuts</a></li>
+      <li><a class="nav-btn" href="#nudges"><span class="glyph" data-glyph="pointer"></span>Nudges</a></li>
+      <li><a class="nav-btn" href="#appearance"><span class="glyph" data-glyph="panels"></span>Appearance</a></li>
+      <li><a class="nav-btn" href="privacy.html"><span class="glyph" data-glyph="shield"></span>Privacy</a></li>
+      <li><a class="splash-cta js-store" href="#install">Add to Chrome</a></li>
+    </ul>
   </div>
 </header>
 
 <main id="main">
-  <section class="hero" aria-labelledby="hero-title" data-enter>
-    <div class="hero-glow" aria-hidden="true"></div>
-    <div class="wrap hero-in">
+  <section class="splash hero" id="hero" aria-labelledby="hero-title" data-enter>
+    <div class="splash-glow" aria-hidden="true"></div>
+    <div class="splash-stage">
       <button class="logo-btn" type="button" aria-label="Press the GG key">
-        <svg class="logo" viewBox="0 0 128 128" aria-hidden="true">
-          <rect width="128" height="128" rx="30" fill="#161618"/>
+        <svg class="splash-logo" viewBox="0 0 128 128" width="132" height="132" aria-hidden="true">
+          <rect class="sl-tile" width="128" height="128" rx="30" fill="#161618"/>
           <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path class="lg-key" pathLength="1" d="M72 28 H44 A16 16 0 0 0 28 44 V84 A16 16 0 0 0 44 100 H84 A16 16 0 0 0 100 84 V56" stroke="#f5f5f3" stroke-width="8"/>
-            <path class="lg-streak" d="M40 88 L70 58" stroke="#398eff" stroke-width="3" opacity=".6"/>
-            <path class="lg-shaft" pathLength="1" d="M56 72 L100 28" stroke="#398eff" stroke-width="9"/>
-            <path class="lg-head" pathLength="1" d="M74 28 H100 V54" stroke="#398eff" stroke-width="9"/>
+            <path class="sl-key" pathLength="1" d="M72 28 H44 A16 16 0 0 0 28 44 V84 A16 16 0 0 0 44 100 H84 A16 16 0 0 0 100 84 V56" stroke="#f5f5f3" stroke-width="8"/>
+            <path class="sl-streak" d="M40 88 L70 58" stroke="#398eff" stroke-width="3"/>
+            <path class="sl-arrow" pathLength="1" d="M56 72 L100 28" stroke="#398eff" stroke-width="9"/>
+            <path class="sl-head" pathLength="1" d="M74 28 H100 V54" stroke="#398eff" stroke-width="9"/>
           </g>
         </svg>
         <span class="ring" aria-hidden="true"></span>
-        <span class="burst" aria-hidden="true">
-          <i style="--x:34px;--y:-30px"></i><i style="--x:44px;--y:2px"></i><i style="--x:8px;--y:-46px"></i><i style="--x:26px;--y:22px"></i><i style="--x:-16px;--y:-36px"></i>
-        </span>
+        <span class="spark" aria-hidden="true"><i style="--x:34px;--y:-30px"></i><i style="--x:44px;--y:2px"></i><i style="--x:8px;--y:-46px"></i><i style="--x:26px;--y:22px"></i><i style="--x:-16px;--y:-36px"></i></span>
       </button>
-      <h1 id="hero-title"><span class="w" style="--i:0">The</span> <span class="w" style="--i:1">keyboard</span> <span class="w" style="--i:2">extension</span> <span class="w blue" style="--i:3">for</span> <span class="w blue" style="--i:4">Gmail™.</span></h1>
-      <p class="lede">GG – Greater experience for Gmail™ acts on the email under your pointer. Point, press <kbd>E</kbd>, and it is archived. A free extension that runs only in your browser.</p>
+      <h1 class="splash-title" id="hero-title">GG</h1>
+      <p class="splash-tag" aria-label="Greater experience for Gmail™">
+        <span>Greater</span> <span>experience</span> <span>for</span> <span>Gmail&trade;</span>
+      </p>
+      <p class="splash-desc">A browser extension that sharpens Gmail's keyboard shortcuts and calms the inbox around them. Point at an email, press <kbd>E</kbd>, and it is archived.</p>
+      <ul class="splash-points">
+        <li><span class="glyph" data-glyph="keyboard"></span>Faster shortcuts</li>
+        <li><span class="glyph" data-glyph="panels"></span>A cleaner Gmail</li>
+        <li><span class="glyph" data-glyph="burst"></span>Inbox zero, sooner</li>
+      </ul>
       <div class="acts">
-        <a class="btn js-store" href="#install" id="install">Add to Chrome <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="btn ghost" href="#shortcuts">See the shortcuts</a>
+        <a class="splash-cta js-store" href="#install" id="install">Add to Chrome<span class="glyph" data-glyph="arrow"></span></a>
+        <a class="ghost-btn" href="#shortcuts">See the shortcuts<span class="glyph" data-glyph="down"></span></a>
       </div>
-      <p class="fine">Free. No account. No servers, no analytics.</p>
+      <p class="splash-fine">Free. No account, no servers, no analytics.</p>
       <div class="keys" aria-hidden="true">
         <kbd style="--i:0">E</kbd><kbd style="--i:1">R</kbd><kbd style="--i:2">A</kbd><kbd style="--i:3">F</kbd><kbd style="--i:4">S</kbd><kbd style="--i:5">L</kbd><kbd style="--i:6">B</kbd><kbd style="--i:7">#</kbd>
       </div>
     </div>
   </section>
 
-  <section class="feat" id="shortcuts" aria-labelledby="sc-title">
+  <section class="sec" id="shortcuts" aria-labelledby="sc-title">
     <div class="wrap">
-      <div class="copy">
-        <p class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="3"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg>Keyboard shortcuts</p>
-        <h2 id="sc-title">Shortcuts that act on the email under your pointer.</h2>
-        <p class="body">No selecting first. Hover a row and press a key. Smart Escape closes emails and popups or takes you back to the inbox, and every shortcut can be switched off on its own.</p>
-        <ul class="list">
-          <li><span class="kgroup"><kbd>E</kbd></span>Archive</li>
-          <li><span class="kgroup"><kbd>R</kbd><kbd>A</kbd><kbd>F</kbd></span>Reply, reply all, forward</li>
-          <li><span class="kgroup"><kbd>B</kbd><kbd>H</kbd></span>Snooze</li>
-          <li><span class="kgroup"><kbd>g</kbd><kbd>g</kbd></span>Jump to top of list</li>
-          <li><span class="kgroup"><kbd>⇧</kbd><kbd>S</kbd></span>Star and archive</li>
-        </ul>
+      <div class="tab-head">
+        <span class="glyph tab-icon" data-glyph="keyboard"></span>
+        <h2 id="sc-title">Keyboard shortcuts</h2>
+        <p class="note">Shortcuts act on the email <b>under your pointer</b>, no selecting first. Smart Escape closes emails and popups or takes you back to the inbox, and every shortcut can be switched off on its own.</p>
       </div>
-      <div class="app demo" id="demo-archive" aria-label="Animated example: hovering an email and pressing E archives it" role="img">
-        <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="search">Inbox</span></div>
-        <div class="rows"></div>
-        <svg class="cursor" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 2l15 9-6.5 1.5L9 19z" fill="#161618" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        <div class="presskey"><kbd>E</kbd></div>
-        <div class="toast">Conversation archived <u>Undo</u></div>
+      <div class="stack">
+        <section class="group inbox" id="demo-archive" aria-label="Animated example: hovering an email and pressing E archives it">
+          <div class="group-head">
+            <span class="glyph group-glyph" data-glyph="mail"></span>
+            <div><h3>Inbox</h3><p class="group-desc">Point, press, gone.</p></div>
+            <span class="keys"><kbd>E</kbd></span>
+          </div>
+          <ul class="rows" aria-hidden="true"></ul>
+          <svg class="cursor" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3 19 10l-5.8 1.8L11 18z" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <div class="flash" aria-hidden="true"><span class="glyph" data-glyph="archive"></span>Conversation archived</div>
+        </section>
+        <section class="group actions" aria-labelledby="ea-title">
+          <div class="group-head">
+            <span class="glyph group-glyph" data-glyph="mail"></span>
+            <div><h3 id="ea-title">Email Actions</h3><p class="group-desc">A few of the shortcuts GG adds.</p></div>
+          </div>
+          <ul class="rows">
+            <li class="row" data-k="e"><div><div class="row-label">Archive</div></div><div class="row-desc">Archive the email under your pointer.</div><span class="keys"><kbd>E</kbd></span></li>
+            <li class="row"><div><div class="row-label">Reply</div></div><div class="row-desc">Reply, reply all or forward.</div><span class="keys"><kbd>R</kbd><kbd>A</kbd><kbd>F</kbd></span></li>
+            <li class="row"><div><div class="row-label">Snooze</div></div><div class="row-desc">Open the snooze menu.</div><span class="keys"><kbd>B</kbd><kbd>H</kbd></span></li>
+            <li class="row"><div><div class="row-label">Star and Archive</div></div><div class="row-desc">Both in one action.</div><span class="keys"><kbd>Shift</kbd><span class="plus">+</span><kbd>S</kbd></span></li>
+            <li class="row"><div><div class="row-label">Jump to top of list</div></div><div class="row-desc">Press g then g.</div><span class="keys"><kbd>g</kbd><kbd>g</kbd></span></li>
+          </ul>
+        </section>
       </div>
     </div>
   </section>
 
-  <section class="feat flip" id="nudges" aria-labelledby="nd-title">
+  <section class="sec" id="nudges" aria-labelledby="nd-title">
     <div class="wrap">
-      <div class="copy">
-        <p class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0-4 10.5V17h8v-3.5A6 6 0 0 0 12 3zM9 21h6"/></svg>Shortcut nudges</p>
-        <h2 id="nd-title">Shortcut nudges on every button you hover.</h2>
-        <p class="body">GG puts each shortcut on the tooltip of the Gmail button it replaces, so the mouse slowly teaches you the keyboard. Try the toolbar here.</p>
+      <div class="tab-head">
+        <span class="glyph tab-icon" data-glyph="pointer"></span>
+        <h2 id="nd-title">Shortcut nudges</h2>
+        <p class="note">Hover any Gmail button and its tooltip shows the keyboard shortcut, so the mouse slowly teaches you the keys. <b>Try the toolbar.</b></p>
       </div>
-      <div class="app demo" id="demo-nudge">
-        <div class="tools" role="toolbar" aria-label="Example Gmail toolbar">
-          <button class="tool" type="button" aria-label="Archive, shortcut E"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="5" rx="1.5"/><path d="M5 9v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V9M10 13h4"/></svg><span class="tip">Archive <kbd>E</kbd></span></button>
-          <button class="tool" type="button" aria-label="Delete, shortcut #"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg><span class="tip">Delete <kbd>#</kbd></span></button>
-          <button class="tool" type="button" aria-label="Mark as unread, shortcut U"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span class="tip">Mark as unread <kbd>U</kbd></span></button>
-          <button class="tool" type="button" aria-label="Snooze, shortcut B"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M5 3 2 6M19 3l3 3"/></svg><span class="tip">Snooze <kbd>B</kbd></span></button>
-          <button class="tool" type="button" aria-label="Label, shortcut L"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/></svg><span class="tip">Label <kbd>L</kbd></span></button>
-          <button class="tool" type="button" aria-label="Reply, shortcut R"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 8 4 13l6 5M4 13h10a6 6 0 0 1 6 6"/></svg><span class="tip">Reply <kbd>R</kbd></span></button>
+      <section class="group" aria-labelledby="tb-title">
+        <div class="group-head">
+          <span class="glyph group-glyph" data-glyph="spark"></span>
+          <div><h3 id="tb-title">Toolbar</h3><p class="group-desc">Hover or tab through the buttons.</p></div>
+        </div>
+        <div class="toolbar" role="toolbar" aria-label="Example Gmail toolbar">
+          <button class="tool" type="button" aria-label="Archive, shortcut E"><span class="glyph" data-glyph="archive"></span><span class="tip">Archive <kbd>E</kbd></span></button>
+          <button class="tool" type="button" aria-label="Delete, shortcut #"><span class="glyph" data-glyph="trash"></span><span class="tip">Delete <kbd>#</kbd></span></button>
+          <button class="tool" type="button" aria-label="Mark as unread, shortcut U"><span class="glyph" data-glyph="mail"></span><span class="tip">Mark as unread <kbd>U</kbd></span></button>
+          <button class="tool" type="button" aria-label="Snooze, shortcut B"><span class="glyph" data-glyph="clock"></span><span class="tip">Snooze <kbd>B</kbd></span></button>
+          <button class="tool" type="button" aria-label="Label, shortcut L"><span class="glyph" data-glyph="tag"></span><span class="tip">Label <kbd>L</kbd></span></button>
+          <button class="tool" type="button" aria-label="Reply, shortcut R"><span class="glyph" data-glyph="reply"></span><span class="tip">Reply <kbd>R</kbd></span></button>
         </div>
         <div class="reading" aria-hidden="true">
-          <h3>Quarterly planning notes</h3>
-          <div class="meta">Priya Raman · to me · 9:41</div>
-          <div class="ln" style="width:92%"></div><div class="ln" style="width:84%"></div><div class="ln" style="width:88%"></div><div class="ln" style="width:52%"></div>
+          <div class="row-label">Quarterly planning notes</div>
+          <div class="row-desc">Priya Raman · to me · 9:41</div>
+          <span class="ln" style="width:92%"></span><span class="ln" style="width:84%"></span><span class="ln" style="width:88%"></span><span class="ln" style="width:52%"></span>
         </div>
+      </section>
+    </div>
+  </section>
+
+  <section class="sec" id="appearance" aria-labelledby="ap-title">
+    <div class="wrap">
+      <div class="tab-head">
+        <span class="glyph tab-icon" data-glyph="panels"></span>
+        <h2 id="ap-title">Appearance</h2>
+        <p class="note">Choose <b>Classic</b> (Gmail as Google made it) or <b>Minimal</b>, then fine-tune. Flip a switch and watch the preview.</p>
+      </div>
+      <div class="stack look" id="look">
+        <section class="group presets-group">
+          <h3 class="eyebrow" id="presets-label"><span class="glyph" data-glyph="spark"></span>Presets</h3>
+          <p class="group-desc presets-desc">A preset is a starting point. Every switch below still works on top of it.</p>
+          <div class="presets" role="radiogroup" aria-labelledby="presets-label">
+            <button class="preset active" type="button" role="radio" aria-checked="true" data-preset="classic">
+              <span class="skel skel-classic" aria-hidden="true">
+                <span class="skel-top"><span class="skel-menu"></span><span class="skel-logo"></span><span class="skel-search"></span><span class="skel-icons"><span class="skel-dot"></span><span class="skel-dot"></span><span class="skel-pill"></span><span class="skel-dot"></span><span class="skel-avatar"></span></span></span>
+                <span class="skel-body">
+                  <span class="skel-rail"><span class="skel-dot"></span><span class="skel-dot"></span></span>
+                  <span class="skel-nav"><span class="skel-nav-active"></span><span class="skel-nav-line"></span><span class="skel-nav-line"></span><span class="skel-nav-line short"></span></span>
+                  <span class="skel-list"><span class="skel-row"><span class="skel-check"></span><span class="skel-star"></span><span class="skel-sender"></span><span class="skel-subject"></span></span><span class="skel-row"><span class="skel-check"></span><span class="skel-star"></span><span class="skel-sender"></span><span class="skel-subject"></span></span><span class="skel-row"><span class="skel-check"></span><span class="skel-star"></span><span class="skel-sender"></span><span class="skel-subject"></span></span><span class="skel-row"><span class="skel-check"></span><span class="skel-star"></span><span class="skel-sender"></span><span class="skel-subject"></span></span></span>
+                  <span class="skel-side"><span class="skel-sq"></span><span class="skel-sq"></span><span class="skel-sq"></span></span>
+                </span>
+              </span>
+              <span class="preset-footer"><span class="preset-text"><span class="preset-name">Classic</span><span class="preset-desc">Gmail as Google made it.</span></span><span class="preset-check"></span></span>
+            </button>
+            <button class="preset" type="button" role="radio" aria-checked="false" data-preset="minimal">
+              <span class="skel skel-minimal" aria-hidden="true">
+                <span class="skel-top"><span class="skel-logo"></span><span class="skel-search"></span><span class="skel-icons"><span class="skel-dot"></span><span class="skel-avatar"></span></span></span>
+                <span class="skel-body">
+                  <span class="skel-nav"><span class="skel-nav-active"></span><span class="skel-nav-line"></span><span class="skel-nav-line"></span></span>
+                  <span class="skel-list"><span class="skel-row"><span class="skel-check"></span><span class="skel-sender"></span><span class="skel-subject"></span></span><span class="skel-row"><span class="skel-check"></span><span class="skel-sender"></span><span class="skel-subject"></span></span><span class="skel-row"><span class="skel-check"></span><span class="skel-sender"></span><span class="skel-subject"></span></span><span class="skel-row"><span class="skel-check"></span><span class="skel-sender"></span><span class="skel-subject"></span></span></span>
+                </span>
+              </span>
+              <span class="preset-footer"><span class="preset-text"><span class="preset-name">Minimal</span><span class="preset-desc">Just your mail.</span></span><span class="preset-check"></span></span>
+            </button>
+          </div>
+          <p class="preset-status" id="preset-status"></p>
+        </section>
+        <section class="group" aria-labelledby="tb2-title">
+          <div class="group-head"><span class="glyph group-glyph" data-glyph="topbar"></span><div><h3 id="tb2-title">Top bar and layout</h3><p class="group-desc">Applied to the Classic preview.</p></div></div>
+          <ul class="rows">
+            <li class="row row-general"><div><div class="row-label">Hide Support button</div><div class="row-desc">Remove the ? Support button from the top bar.</div></div><label class="switch"><input type="checkbox" data-hide="support" aria-label="Hide Support button"><span class="track"></span></label></li>
+            <li class="row row-general"><div><div class="row-label">Hide Try Gemini button</div><div class="row-desc">Remove the Gemini button from the top bar.</div></div><label class="switch"><input type="checkbox" data-hide="gemini" aria-label="Hide Try Gemini button"><span class="track"></span></label></li>
+            <li class="row row-general"><div><div class="row-label">Hide Upgrade button</div><div class="row-desc">Remove the Upgrade / Google One storage prompt.</div></div><label class="switch"><input type="checkbox" data-hide="upgrade" aria-label="Hide Upgrade button"><span class="track"></span></label></li>
+            <li class="row row-general"><div><div class="row-label">Hide left app bar</div><div class="row-desc">Remove the main menu (☰) button beside the Gmail logo.</div></div><label class="switch"><input type="checkbox" data-hide="menu" aria-label="Hide left app bar"><span class="track"></span></label></li>
+            <li class="row row-general"><div><div class="row-label">Hide right side panel</div><div class="row-desc">Remove the side panel with Calendar, Keep, Tasks and Contacts.</div></div><label class="switch"><input type="checkbox" data-hide="side" aria-label="Hide right side panel"><span class="track"></span></label></li>
+          </ul>
+        </section>
       </div>
     </div>
   </section>
 
-  <section class="feat" id="look" aria-labelledby="lk-title">
+  <section class="sec" id="private" aria-labelledby="pv-title">
     <div class="wrap">
-      <div class="copy">
-        <p class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M3 12h18" opacity=".3"/><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg>Appearance</p>
-        <h2 id="lk-title">Two appearance presets: Classic and Minimal.</h2>
-        <p class="body">Classic is Gmail as Google made it. Minimal hides the Support, Gemini and Upgrade buttons, the main menu button and the right side panel. Each switch also works on its own.</p>
-        <div class="seg" role="group" aria-label="Appearance preset">
-          <span class="pill" aria-hidden="true"></span>
-          <button type="button" aria-pressed="true" data-preset="classic">Classic</button>
-          <button type="button" aria-pressed="false" data-preset="min">Minimal</button>
-        </div>
+      <div class="tab-head">
+        <span class="glyph tab-icon" data-glyph="shield"></span>
+        <h2 id="pv-title">Privacy by design</h2>
+        <p class="note">GG runs entirely inside your browser on mail.google.com. It never sends your email or any other data anywhere. The first time you open each Gmail account, GG turns on Gmail's own keyboard shortcuts in Settings → General. <a href="privacy.html">Read the privacy policy</a>.</p>
       </div>
-      <div class="app" role="img" aria-label="Example Gmail window showing the selected appearance preset">
-        <div class="gm" id="gm">
-          <div class="gm-top">
-            <span class="menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></span>
-            <span class="mark"><i></i>Mail</span>
-            <span class="search"></span>
-            <span class="chip">? Support</span>
-            <span class="chip">✦ Try Gemini</span>
-            <span class="chip">Upgrade</span>
-          </div>
-          <div class="gm-side"><span class="compose"></span><span class="ln" style="width:80%"></span><span class="ln" style="width:60%"></span><span class="ln" style="width:70%"></span><span class="ln" style="width:50%"></span></div>
-          <div class="gm-list">
-            <div class="row"><b>Dana Whit</b><span>Invoice for November</span></div>
-            <div class="row"><b>Build bot</b><span>main passed in 4m 12s</span></div>
-            <div class="row"><b>Sam Ortiz</b><span>Lunch on Thursday?</span></div>
-            <div class="row"><b>Travel desk</b><span>Your itinerary is ready</span></div>
-            <div class="row"><b>Lee Park</b><span>Re: design review</span></div>
-            <div class="row"><b>Newsletter</b><span>This week in tooling</span></div>
-          </div>
-          <div class="gm-right"><i></i><i></i><i></i><i></i></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="feat dark" id="private" aria-labelledby="pv-title">
-    <div class="wrap">
-      <div class="copy">
-        <p class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg>Private by design</p>
-        <h2 id="pv-title">A privacy policy with nothing to collect.</h2>
-        <p class="body">GG runs only on mail.google.com. It never sends your email or any other data anywhere. Your settings sync through your own browser account. The first time you open each Gmail account, GG turns on Gmail's own keyboard shortcuts in Settings → General.</p>
-        <p class="body"><a href="privacy.html">Read the privacy policy</a></p>
-      </div>
-      <div class="facts">
-        <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M3 3l18 18"/></svg><b>0 servers</b><span>Nothing to send data to.</span></div>
-        <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/><path d="M3 3l18 18"/></svg><b>0 analytics</b><span>No tracking, no ads.</span></div>
-        <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/><path d="M3 3l18 18"/></svg><b>1 site</b><span>Runs on mail.google.com only.</span></div>
-        <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/><path d="m16 17 2 2 4-4"/></svg><b>2 permissions</b><span>Storage and Gmail access.</span></div>
-      </div>
+      <section class="group" aria-labelledby="pf-title">
+        <div class="group-head"><span class="glyph group-glyph" data-glyph="info"></span><div><h3 id="pf-title">What GG does with your data</h3><p class="group-desc">Nothing leaves your browser.</p></div></div>
+        <ul class="rows privacy-rows">
+          <li class="row row-general"><span class="glyph group-glyph" data-glyph="server"></span><div><div class="row-label">No servers</div><div class="row-desc">GG makes no network requests at all.</div></div></li>
+          <li class="row row-general"><span class="glyph group-glyph" data-glyph="chart"></span><div><div class="row-label">No analytics, no ads</div><div class="row-desc">Nothing is tracked, logged or sold.</div></div></li>
+          <li class="row row-general"><span class="glyph group-glyph" data-glyph="globe"></span><div><div class="row-label">One site</div><div class="row-desc">Runs on mail.google.com and nowhere else.</div></div></li>
+          <li class="row row-general"><span class="glyph group-glyph" data-glyph="sliders"></span><div><div class="row-label">Settings only</div><div class="row-desc">Stored in your browser's extension storage.</div></div></li>
+        </ul>
+      </section>
     </div>
   </section>
 
   <section class="close" aria-labelledby="cl-title">
     <div class="wrap">
-      <img src="assets/logo.svg" alt="" width="88" height="88">
-      <h2 id="cl-title">Install GG and clear your inbox faster.</h2>
-      <p>Install GG, open Gmail, point at an email and press <kbd>E</kbd>.</p>
-      <div class="acts"><a class="btn js-store" href="#install">Add to Chrome <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      <img class="brand-logo" src="assets/logo.svg" alt="" width="72" height="72">
+      <h2 id="cl-title">Install GG and reach inbox zero sooner</h2>
+      <p class="note">Open Gmail, point at an email and press <kbd>E</kbd>.</p>
+      <a class="splash-cta js-store" href="#install">Add to Chrome<span class="glyph" data-glyph="arrow"></span></a>
     </div>
   </section>
 </main>
@@ -377,82 +229,6 @@ kbd.hit { animation: keyhit .3s var(--spring) !important; opacity: 1 !important;
   </div>
 </footer>
 
-<script>
-/* ===== PLACEHOLDER: set this to the Chrome Web Store listing URL once it is published. ===== */
-const CHROME_STORE_URL = ''; // e.g. 'https://chromewebstore.google.com/detail/<extension-id>'
-
-(() => {
-  if (CHROME_STORE_URL) document.querySelectorAll('.js-store').forEach(a => { a.href = CHROME_STORE_URL; a.rel = 'noopener'; });
-
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const root = document.documentElement;
-  if (!reduce) { root.classList.add('m'); requestAnimationFrame(() => requestAnimationFrame(() => root.classList.add('go'))); }
-
-  // Hero logo: click or press a hero key letter to replay the keypress.
-  const logoBtn = document.querySelector('.logo-btn');
-  const again = () => { logoBtn.classList.remove('again'); void logoBtn.offsetWidth; logoBtn.classList.add('again'); };
-  logoBtn.addEventListener('click', again);
-  const heroKeys = [...document.querySelectorAll('.hero .keys kbd')];
-  addEventListener('keydown', e => {
-    if (e.target.closest('input, textarea') || e.metaKey || e.ctrlKey || e.altKey) return;
-    const k = heroKeys.find(x => x.textContent.toLowerCase() === e.key.toLowerCase());
-    if (k && scrollY < innerHeight) { k.classList.remove('hit'); void k.offsetWidth; k.classList.add('hit'); again(); }
-  });
-
-  // Demo 1: hover a row, press E, row archives, a new one arrives.
-  const mails = [
-    ['Dana Whit', 'Invoice for November', '9:41'], ['Build bot', 'main passed in 4m 12s', '9:30'],
-    ['Sam Ortiz', 'Lunch on Thursday?', '9:12'], ['Travel desk', 'Your itinerary is ready', '8:55'],
-    ['Lee Park', 'Re: design review', '8:20'], ['Newsletter', 'This week in tooling', 'Nov 25'],
-    ['Ana Costa', 'Contract draft v3', 'Nov 25'], ['Ops', 'Weekly uptime report', 'Nov 24']
-  ];
-  const demo = document.getElementById('demo-archive');
-  const rowsEl = demo.querySelector('.rows');
-  const cursor = demo.querySelector('.cursor');
-  const key = demo.querySelector('.presskey kbd');
-  const toast = demo.querySelector('.toast');
-  let next = 0;
-  const makeRow = m => { const r = document.createElement('div'); r.className = 'row'; r.innerHTML = `<i class="chk"></i><b>${m[0]}</b><span>${m[1]}</span><time>${m[2]}</time>`; return r; };
-  for (let i = 0; i < 6; i++) rowsEl.append(makeRow(mails[next++ % mails.length]));
-  const place = r => { const b = demo.getBoundingClientRect(), rb = r.getBoundingClientRect(); cursor.style.transform = `translate(${rb.left - b.left + rb.width * .55}px, ${rb.top - b.top + 20}px)`; };
-  const wait = ms => new Promise(res => setTimeout(res, ms));
-  let running = false, visible = false, paused = false;
-  async function cycle() {
-    if (running) return; running = true;
-    while (visible && !paused && !reduce) {
-      const rows = [...rowsEl.children]; const r = rows[1 + Math.floor(Math.random() * 3)];
-      place(r); await wait(750); r.classList.add('hov');
-      await wait(350); key.classList.add('show'); await wait(260); key.classList.add('down');
-      await wait(140); key.classList.remove('down'); r.classList.add('out'); toast.classList.add('show');
-      await wait(560); r.remove(); const n = makeRow(mails[next++ % mails.length]); n.classList.add('in'); rowsEl.append(n);
-      await wait(700); key.classList.remove('show'); toast.classList.remove('show'); await wait(500);
-    }
-    running = false;
-  }
-  if (reduce) { const r = rowsEl.children[1]; r.classList.add('hov'); requestAnimationFrame(() => place(r)); }
-  new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) cycle(); }, { threshold: .35 }).observe(demo);
-  demo.addEventListener('mouseenter', () => { if (!paused) cycle(); });
-
-  // Pause control for the looping demo.
-  const pb = document.createElement('button');
-  pb.className = 'pause'; pb.type = 'button'; pb.setAttribute('aria-label', 'Pause animation');
-  const icon = p => p ? '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5l12 7-12 7z"/></svg>' : '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
-  pb.innerHTML = icon(false);
-  pb.addEventListener('click', () => { paused = !paused; pb.innerHTML = icon(paused); pb.setAttribute('aria-label', paused ? 'Play animation' : 'Pause animation'); if (!paused) cycle(); });
-  if (!reduce) demo.append(pb);
-
-
-  // Demo 3: appearance preset switch.
-  const seg = document.querySelector('.seg'), pill = seg.querySelector('.pill'), gm = document.getElementById('gm');
-  const setPreset = btn => {
-    seg.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
-    pill.style.width = btn.offsetWidth + 'px'; pill.style.transform = `translateX(${btn.offsetLeft - 4}px)`;
-    gm.classList.toggle('min', btn.dataset.preset === 'min');
-  };
-  seg.querySelectorAll('button').forEach(b => b.addEventListener('click', () => setPreset(b)));
-  const first = seg.querySelector('button');
-  setPreset(first); addEventListener('resize', () => setPreset(seg.querySelector('[aria-pressed="true"]')));
-})();
-</script>
+<script src="site.js"></script>
 </body>
 </html>

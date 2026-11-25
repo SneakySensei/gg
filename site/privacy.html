@@ -9,34 +9,25 @@
 <link rel="canonical" href="https://gg.snehil.dev/privacy.html">
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 <link rel="icon" href="assets/32.png" sizes="32x32">
-<link rel="stylesheet" href="assets/site.css">
-<style>
-.doc { padding: 64px 0 96px; }
-.doc .wrap { max-width: 720px; }
-.doc h1 { font-size: clamp(36px, 5vw, 52px); letter-spacing: -.02em; line-height: 1.05; margin: 0; }
-.doc .date { color: var(--muted); margin: 12px 0 36px; font-size: 15px; }
-.doc h2 { font-size: 24px; margin: 44px 0 10px; letter-spacing: -.01em; }
-.doc ul { padding-left: 1.2em; }
-.doc li { margin: 10px 0; }
-.doc code { font: .9em Consolas, ui-monospace, monospace; background: var(--surface-2); padding: 2px 6px; border-radius: 6px; overflow-wrap: anywhere; }
-.summary { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--blue); border-radius: 12px; padding: 18px 22px; }
-.todo { background: #fff3c4; color: #5a4300; padding: 2px 8px; border-radius: 6px; font-weight: 600; }
-.doc hr { border: 0; border-top: 1px solid var(--line); margin: 44px 0 20px; }
-.doc .small { color: var(--muted); font-size: 15px; }
-</style>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css">
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="nav">
+<header class="top">
   <div class="wrap">
-    <a class="brand" href="./" aria-label="GG home"><img src="assets/logo.svg" alt="" width="30" height="30">GG</a>
-    <nav class="nav-links" aria-label="Main"><a class="btn small ghost" href="./">Home</a></nav>
+    <a class="brand" href="./" aria-label="GG home">
+      <img class="brand-logo" src="assets/logo.svg" alt="" width="36" height="36">
+      <span class="brand-text"><span class="brand-name">GG</span><span class="brand-tag">Greater experience for Gmail™</span></span>
+    </a>
+    <a class="ghost-btn" href="./">Home</a>
   </div>
 </header>
 <main id="main" class="doc">
-<article class="wrap">
-<h1>GG – Privacy Policy</h1>
-<p class="date">Last updated: 26 November 2026</p>
+<div class="wrap">
+<div class="tab-head"><span class="glyph tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5 5 6.5v5c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9v-5z"/><path d="m9 12 2 2 4-4"/></svg></span><h1 style="margin:0;font-size:30px;font-weight:600;line-height:1.2">GG – Privacy Policy</h1><p class="note">Last updated: 26 November 2026</p></div>
+<article class="group" style="margin-top:28px">
 
 <p>GG ("Greater experience for Gmail™") is a browser extension that adds keyboard shortcuts and interface options to the Gmail web app. This policy explains what data GG handles and what it does with it.</p>
 
@@ -75,9 +66,9 @@
 <!-- PLACEHOLDER: replace with the real support email or issues URL before submitting (also in store/privacy-policy.md). -->
 <p>Questions about this policy: <span class="todo">[your support email or issues URL]</span></p>
 
-<hr>
-<p class="small">GG is an independent project and is not affiliated with, endorsed by or sponsored by Google. Gmail is a trademark of Google LLC.</p>
+<p class="note">GG is an independent project and is not affiliated with, endorsed by or sponsored by Google. Gmail is a trademark of Google LLC.</p>
 </article>
+</div>
 </main>
 <footer class="foot">
   <div class="wrap">

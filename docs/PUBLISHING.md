@@ -66,8 +66,12 @@ on every push to `main` that touches `site/`.
 2. At the DNS host for `snehil.dev`, add `CNAME gg → <github-username>.github.io`.
 3. In Settings → Pages, set the custom domain to `gg.snehil.dev` (`site/CNAME`
    already holds it) and, once the certificate is issued, tick **Enforce HTTPS**.
-4. When the store listing is live, set `CHROME_STORE_URL` near the bottom of
-   `site/index.html` so the "Add to Chrome" buttons point at it.
+4. **Design tokens stay in sync.** `site/tokens.css` (and the components in
+   `site/components.css`) are copied verbatim from `entrypoints/options/style.css`,
+   so the site looks exactly like the settings page. When you change a token or
+   component there, copy the change into `site/` too.
+5. When the store listing is live, set `CHROME_STORE_URL` at the top of
+   `site/site.js` so the "Add to Chrome" buttons point at it.
 
 ## 4. Take screenshots  **[You]**
 
