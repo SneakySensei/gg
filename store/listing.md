@@ -43,7 +43,7 @@ Choose Classic (Gmail as Google made it) or Minimal, then fine-tune: hide the Su
 PRIVATE BY DESIGN
 GG runs entirely inside your browser on mail.google.com. It never sends your email or any other data anywhere, has no servers, no analytics and no ads. Your settings sync through your own browser account.
 
-Note: turn on "Keyboard shortcuts" in Gmail Settings → General for the shortcuts to work.
+GG builds on Gmail's own keyboard shortcuts. The first time you open each Gmail account, GG turns them on for you in Gmail Settings → General.
 
 GG is an independent project and is not affiliated with, endorsed by or sponsored by Google. Gmail is a trademark of Google LLC.
 ```
@@ -72,7 +72,7 @@ GG is an independent project and is not affiliated with, endorsed by or sponsore
 
 | Permission | Justification |
 | --- | --- |
-| `storage` | Saves the user's settings (which shortcuts and appearance options are enabled, and the settings page theme) using chrome.storage.sync so they persist and follow the user's browser profile. No email content is stored. |
+| `storage` | Saves the user's settings (which shortcuts and appearance options are enabled, and the settings page theme) using chrome.storage.sync so they persist and follow the user's browser profile. It also keeps, in chrome.storage.local only, the list of Gmail account addresses for which GG has already turned on Gmail's keyboard shortcuts, so that one-time setup isn't repeated. No email content is stored. |
 | Host permission `*://mail.google.com/*` | GG only works inside Gmail. It needs to run on mail.google.com to listen for keyboard shortcuts, trigger Gmail's own actions (archive, reply, label…), show shortcut hints on Gmail's buttons and hide optional parts of Gmail's interface. It runs on no other site. |
 
 **Remote code:** No, I am not using remote code. (All JavaScript ships inside the package; nothing is fetched or evaluated at runtime.)
@@ -83,7 +83,7 @@ GG does not collect or transmit any user data. It does, however, *handle* some d
 
 | Category | Tick? | Why |
 | --- | --- | --- |
-| Personally identifiable information | Tick | To build the "copy link to this email" URL, GG reads the signed-in account's email address from the Gmail page, locally, at the moment you use the shortcut. |
+| Personally identifiable information | Tick | GG reads the signed-in account's email address from the Gmail page to build the "copy link to this email" URL, and to remember (in local extension storage only) which accounts it has already turned on Gmail's keyboard shortcuts for. It is never sent anywhere. |
 | Website content | Tick | The "instant copy" and "quick quote" shortcuts read the open email's text (sender, recipients, date, body) and place it on your clipboard or into your reply, locally, when you press the shortcut. |
 | User activity | Tick | GG listens for keystrokes and mouse position inside Gmail to run shortcuts and show hints. Nothing is recorded or sent. |
 | Health, financial, authentication, personal communications (other), location, web history | Don't tick | Not handled. |

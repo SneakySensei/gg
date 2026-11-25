@@ -28,6 +28,11 @@ This information never leaves your browser and is not stored by GG.
   **Copy link to email**, GG reads your signed-in address from the Gmail page to
   build a link that opens in the right Google account. The link goes to your
   clipboard.
+- **Your account's email address, for one-time setup.** GG's shortcuts need
+  Gmail's own keyboard shortcuts turned on. The first time GG sees a Gmail
+  account, it reads that account's address from the page, opens Gmail's
+  Settings → General, turns on "Keyboard shortcuts on" if it is off, and saves.
+  This changes that one Gmail setting and nothing else.
 
 ## Data GG stores
 
@@ -35,8 +40,13 @@ GG stores **only your settings** (which shortcuts and appearance options are
 turned on, and the settings page theme) using your browser's extension storage
 (`chrome.storage.sync`). If you are signed in to your browser with sync turned
 on, your browser may sync these settings across your devices; that sync is
-provided by your browser vendor, not by GG. No email content or account
-information is stored.
+provided by your browser vendor, not by GG.
+
+GG also keeps a list of the Gmail **account addresses it has already set up**
+(see one-time setup above), so it does that only once per account. This list is
+kept in your browser's local extension storage (`chrome.storage.local`), never
+synced or sent anywhere, and is deleted when you uninstall GG. No email content
+is stored.
 
 ## Sharing
 
@@ -52,7 +62,7 @@ user-facing features and for no other purpose.
 
 ## Permissions
 
-- **storage**: save your settings.
+- **storage**: save your settings and the list of accounts already set up.
 - **Access to mail.google.com**: run GG's shortcuts and interface options inside
   Gmail. GG does not run on any other website.
 
