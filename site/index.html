@@ -16,6 +16,7 @@
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 <link rel="icon" href="assets/32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/128.png">
+<script>document.documentElement.classList.add('m-enter')</script>
 <link rel="stylesheet" href="assets/site.css">
 <style>
 /* ---------- Hero */
@@ -184,6 +185,8 @@ kbd.hit { animation: keyhit .3s var(--spring) !important; opacity: 1 !important;
   .row { grid-template-columns: 16px 96px 1fr; padding: 0 14px; gap: 10px; }
   .row time { display: none; }
   .gm-side { display: none; }
+  .gm-top .chip:nth-of-type(n+2) { display: none; }
+  .gm-top .chip { max-width: none; }
   .gm { grid-template-columns: 1fr auto; }
   .gm-list .row { grid-template-columns: 84px 1fr; }
   .facts { grid-template-columns: 1fr; }
@@ -223,7 +226,7 @@ kbd.hit { animation: keyhit .3s var(--spring) !important; opacity: 1 !important;
 </header>
 
 <main id="main">
-  <section class="hero" aria-labelledby="hero-title">
+  <section class="hero" aria-labelledby="hero-title" data-enter>
     <div class="hero-glow" aria-hidden="true"></div>
     <div class="wrap hero-in">
       <button class="logo-btn" type="button" aria-label="Press the GG key">
@@ -241,7 +244,7 @@ kbd.hit { animation: keyhit .3s var(--spring) !important; opacity: 1 !important;
           <i style="--x:34px;--y:-30px"></i><i style="--x:44px;--y:2px"></i><i style="--x:8px;--y:-46px"></i><i style="--x:26px;--y:22px"></i><i style="--x:-16px;--y:-36px"></i>
         </span>
       </button>
-      <h1 id="hero-title"><span class="w" style="--i:0">Keyboard</span> <span class="w" style="--i:1">shortcuts</span> <span class="w" style="--i:2">for</span> <span class="w blue" style="--i:3">Gmail™,</span> <span class="w" style="--i:4">done</span> <span class="w" style="--i:5">right.</span></h1>
+      <h1 id="hero-title"><span class="w" style="--i:0">The</span> <span class="w" style="--i:1">keyboard</span> <span class="w" style="--i:2">extension</span> <span class="w blue" style="--i:3">for</span> <span class="w blue" style="--i:4">Gmail™.</span></h1>
       <p class="lede">GG – Greater experience for Gmail™ acts on the email under your pointer. Point, press <kbd>E</kbd>, and it is archived. A free extension that runs only in your browser.</p>
       <div class="acts">
         <a class="btn js-store" href="#install" id="install">Add to Chrome <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -258,7 +261,7 @@ kbd.hit { animation: keyhit .3s var(--spring) !important; opacity: 1 !important;
     <div class="wrap">
       <div class="copy">
         <p class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="3"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg>Keyboard shortcuts</p>
-        <h2 id="sc-title">The email under your pointer is the one you act on.</h2>
+        <h2 id="sc-title">Shortcuts that act on the email under your pointer.</h2>
         <p class="body">No selecting first. Hover a row and press a key. Smart Escape closes emails and popups or takes you back to the inbox, and every shortcut can be switched off on its own.</p>
         <ul class="list">
           <li><span class="kgroup"><kbd>E</kbd></span>Archive</li>
@@ -282,7 +285,7 @@ kbd.hit { animation: keyhit .3s var(--spring) !important; opacity: 1 !important;
     <div class="wrap">
       <div class="copy">
         <p class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0-4 10.5V17h8v-3.5A6 6 0 0 0 12 3zM9 21h6"/></svg>Shortcut nudges</p>
-        <h2 id="nd-title">Hover a button, learn its key.</h2>
+        <h2 id="nd-title">Shortcut nudges on every button you hover.</h2>
         <p class="body">GG puts each shortcut on the tooltip of the Gmail button it replaces, so the mouse slowly teaches you the keyboard. Try the toolbar here.</p>
       </div>
       <div class="app demo" id="demo-nudge">
@@ -307,7 +310,7 @@ kbd.hit { animation: keyhit .3s var(--spring) !important; opacity: 1 !important;
     <div class="wrap">
       <div class="copy">
         <p class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M3 12h18" opacity=".3"/><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg>Appearance</p>
-        <h2 id="lk-title">Classic or Minimal, then fine-tune.</h2>
+        <h2 id="lk-title">Two appearance presets: Classic and Minimal.</h2>
         <p class="body">Classic is Gmail as Google made it. Minimal hides the Support, Gemini and Upgrade buttons, the main menu button and the right side panel. Each switch also works on its own.</p>
         <div class="seg" role="group" aria-label="Appearance preset">
           <span class="pill" aria-hidden="true"></span>
@@ -344,7 +347,7 @@ kbd.hit { animation: keyhit .3s var(--spring) !important; opacity: 1 !important;
     <div class="wrap">
       <div class="copy">
         <p class="eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg>Private by design</p>
-        <h2 id="pv-title">Your email stays in your browser.</h2>
+        <h2 id="pv-title">A privacy policy with nothing to collect.</h2>
         <p class="body">GG runs only on mail.google.com. It never sends your email or any other data anywhere. Your settings sync through your own browser account. The first time you open each Gmail account, GG turns on Gmail's own keyboard shortcuts in Settings → General.</p>
         <p class="body"><a href="privacy.html">Read the privacy policy</a></p>
       </div>
@@ -360,7 +363,7 @@ kbd.hit { animation: keyhit .3s var(--spring) !important; opacity: 1 !important;
   <section class="close" aria-labelledby="cl-title">
     <div class="wrap">
       <img src="assets/logo.svg" alt="" width="88" height="88">
-      <h2 id="cl-title">Get through your inbox faster.</h2>
+      <h2 id="cl-title">Install GG and clear your inbox faster.</h2>
       <p>Install GG, open Gmail, point at an email and press <kbd>E</kbd>.</p>
       <div class="acts"><a class="btn js-store" href="#install">Add to Chrome <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
     </div>
@@ -438,14 +441,6 @@ const CHROME_STORE_URL = ''; // e.g. 'https://chromewebstore.google.com/detail/<
   pb.addEventListener('click', () => { paused = !paused; pb.innerHTML = icon(paused); pb.setAttribute('aria-label', paused ? 'Play animation' : 'Pause animation'); if (!paused) cycle(); });
   if (!reduce) demo.append(pb);
 
-  // Demo 2: nudge tooltips, auto-hint once when the toolbar comes into view.
-  const tools = [...document.querySelectorAll('#demo-nudge .tool')];
-  const nudge = document.getElementById('demo-nudge');
-  let hinted = false;
-  new IntersectionObserver(async ([e]) => {
-    if (!e.isIntersecting || hinted || reduce) return; hinted = true;
-    for (const t of tools.slice(0, 3)) { t.classList.add('hov'); await wait(900); t.classList.remove('hov'); await wait(120); }
-  }, { threshold: .6 }).observe(nudge);
 
   // Demo 3: appearance preset switch.
   const seg = document.querySelector('.seg'), pill = seg.querySelector('.pill'), gm = document.getElementById('gm');
