@@ -13,7 +13,16 @@
   <body>
     <div class="layout">
       <aside class="sidebar">
-        <h1 class="brand"><img class="brand-logo" src="/icon/96.png" alt="" width="28" height="28" /><span>GG</span></h1>
+        <div class="brand">
+          <svg class="brand-logo" viewBox="0 0 128 128" width="36" height="36" aria-hidden="true">
+            <rect width="128" height="128" rx="30" fill="#161618"/>
+            <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M72 28 H44 A16 16 0 0 0 28 44 V84 A16 16 0 0 0 44 100 H84 A16 16 0 0 0 100 84 V56" stroke="#f5f5f3" stroke-width="8"/>
+              <path d="M56 72 L100 28 M74 28 H100 V54" stroke="#398eff" stroke-width="9"/>
+            </g>
+          </svg>
+          <h1 class="brand-text"><span class="brand-name">GG</span><span class="brand-tag">Greater experience for Gmail&trade;</span></h1>
+        </div>
         <nav>
           <ul class="nav" role="tablist">
             <li><button class="nav-btn" role="tab" data-tab="general" aria-controls="tab-general">General</button></li>
@@ -21,12 +30,14 @@
             <li><button class="nav-btn" role="tab" data-tab="shortcuts" aria-controls="tab-shortcuts">Keyboard Shortcuts</button></li>
           </ul>
         </nav>
+        <p class="sidebar-foot">Fewer clicks. Faster inbox zero.</p>
       </aside>
 
       <main>
         <section id="tab-general" class="tab" role="tabpanel" hidden>
           <header class="tab-head">
             <div>
+              <p class="kicker">01</p>
               <h2>General</h2>
               <p class="note">How GG behaves while you work in Gmail.</p>
             </div>
@@ -52,6 +63,7 @@
         <section id="tab-appearance" class="tab" role="tabpanel" hidden>
           <header class="tab-head">
             <div>
+              <p class="kicker">02</p>
               <h2>Appearance</h2>
               <p class="note">Pick a starting point, then fine-tune individual parts of Gmail. Changes apply instantly.</p>
             </div>
@@ -68,6 +80,7 @@
         <section id="tab-shortcuts" class="tab" role="tabpanel" hidden>
           <header class="tab-head">
             <div>
+              <p class="kicker">03</p>
               <h2>Keyboard Shortcuts</h2>
               <p class="note">
                 These run on top of Gmail's own shortcuts. Turn on <b>Keyboard shortcuts</b> in
