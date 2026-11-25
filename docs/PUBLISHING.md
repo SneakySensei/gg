@@ -51,10 +51,23 @@ quick quote), your address (copy link) and your keystrokes, so it needs one.
 
 - The policy is ready: [`store/privacy-policy.md`](../store/privacy-policy.md).
   Fill in the contact line at the bottom.
-- Publish it at a stable public URL. Easiest options:
-  - push this repo to GitHub as a public repo and use the file's GitHub URL, or
-  - turn on GitHub Pages for the repo and link `store/privacy-policy`.
-- Paste that URL into the dashboard's Privacy tab.
+- It is published by the website (see [Website](#website) below) at
+  **`https://gg.snehil.dev/privacy.html`**. `site/privacy.html` mirrors
+  `store/privacy-policy.md`; keep the two in sync and fill in the contact line in both.
+- Paste `https://gg.snehil.dev/privacy.html` into the dashboard's Privacy tab.
+
+## Website  **[You once, then Automated]**
+
+The landing page and privacy policy live in `site/` (plain HTML, no build step) and
+deploy to GitHub Pages at `https://gg.snehil.dev` through `.github/workflows/pages.yml`
+on every push to `main` that touches `site/`.
+
+1. Repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+2. At the DNS host for `snehil.dev`, add `CNAME gg → <github-username>.github.io`.
+3. In Settings → Pages, set the custom domain to `gg.snehil.dev` (`site/CNAME`
+   already holds it) and, once the certificate is issued, tick **Enforce HTTPS**.
+4. When the store listing is live, set `CHROME_STORE_URL` near the bottom of
+   `site/index.html` so the "Add to Chrome" buttons point at it.
 
 ## 4. Take screenshots  **[You]**
 
