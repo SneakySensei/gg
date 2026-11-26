@@ -20,7 +20,13 @@ export default defineConfig({
     action: { default_title: 'GG settings' },
     ...(browser === 'firefox' && {
       browser_specific_settings: {
-        gecko: { id: 'gg@local', strict_min_version: '128.0' },
+        gecko: {
+          // Permanent: AMO ties the listing and every update to this ID.
+          id: 'gg@snehil.dev',
+          strict_min_version: '128.0',
+          // Required for new AMO submissions: GG collects and transmits no data.
+          data_collection_permissions: { required: ['none'] },
+        },
       },
     }),
   }),

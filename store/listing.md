@@ -97,3 +97,58 @@ GG does not collect or transmit any user data. It does, however, *handle* some d
 - I do not use or transfer user data to determine creditworthiness or for lending purposes.
 
 **Privacy policy URL:** `https://gg.snehil.dev/privacy.html` (source: `site/privacy.html`).
+
+---
+
+## Notes to reviewer
+
+Paste into **Firefox Add-ons â†’ Notes to Reviewer** on every submission. Chrome's
+dashboard has no such field; use the same text if a Chrome reviewer asks questions.
+
+```text
+GG adds keyboard shortcuts, shortcut hints and optional interface clean-ups to the Gmail web app. It runs only on mail.google.com, makes no network requests, loads no remote code and collects no data.
+
+BUILD (source code is attached)
+- Requirements: Bun 1.4.x (https://bun.sh). No other tools or environment variables are needed.
+- Commands: bun install, then bun run zip:firefox
+- Output: .output/gg-<version>-firefox.zip. The uploaded add-on is built exactly this way, with WXT and TypeScript.
+
+HOW IT WORKS
+- gmail-shortcuts.js runs in the page's MAIN world. That is required because Gmail only reacts to keyboard events with legacy keyCode/which values, which an isolated content script cannot give to the page's own listeners. This script does not use any extension APIs.
+- gmail-bridge.js (isolated world) reads the user's settings from storage.sync and passes them to the MAIN-world script with window.postMessage, restricted to the page's own origin.
+- appearance.js toggles CSS classes on <html> to hide optional parts of Gmail's interface (only when the user turns those switches on).
+- onboarding.js: GG needs Gmail's own "Keyboard shortcuts" setting turned on. The first time it sees a Gmail account, it opens Gmail's Settings > General, selects "Keyboard shortcuts on" if it is off, and clicks Save. It only ever turns that one setting on. It remembers the account address in storage.local so this happens once per account. That list never leaves the browser.
+- The options page (settings) opens on install with a short welcome screen. "Get started" opens Gmail in a new tab to run the step above.
+
+PERMISSIONS
+- storage: the user's settings (storage.sync) and the list of accounts already set up (storage.local).
+- Host permission *://mail.google.com/*: GG only works inside Gmail.
+
+DATA
+data_collection_permissions is "none": nothing is collected or transmitted. Features that read email text (copy an email, quote a selection) put it on the user's clipboard or in their reply, only when the user presses that shortcut.
+
+TESTING
+Any Gmail account works; the English Gmail interface is assumed. Open Gmail, then:
+1. Hover a toolbar button (Archive, Delete): a hint shows its name and key.
+2. Open an email and press E to archive it, or hover an email in the list and press E.
+3. Press Esc to go back to the inbox.
+4. Open GG's settings (toolbar icon) > Appearance > Minimal to hide optional parts of Gmail.
+
+Privacy policy: https://gg.snehil.dev/privacy.html
+Gmail is a trademark of Google LLC. GG is an independent project and is not affiliated with Google.
+```
+
+---
+
+## Screenshot captions
+
+Upload `store/assets/screenshot-1.png` â€¦ `screenshot-5.png` in this order. Firefox Add-ons
+shows a caption under each one; the Chrome Web Store has no caption field.
+
+| File | Caption |
+| --- | --- |
+| `screenshot-1.png` | GG puts Gmailâ„¢ on the keyboard: archive, reply, delete and star with a single key. |
+| `screenshot-2.png` | Hover any button to see its name and shortcut, so you learn the keys as you go. |
+| `screenshot-3.png` | The Minimal preset hides Gemini, Upgrade and the side panels for a calmer inbox. |
+| `screenshot-4.png` | Turn every shortcut on or off individually. Changes apply instantly. |
+| `screenshot-5.png` | One click to get started: GG turns on Gmail's keyboard shortcuts for each account. |

@@ -66,7 +66,9 @@ function glyph(name: string, cls = 'glyph') {
 
 function fillGlyph(span: HTMLElement, name: string) {
   span.setAttribute('aria-hidden', 'true');
-  span.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">${GLYPHS[name] ?? GLYPHS.keyboard}</svg>`;
+  // Parsed as SVG (not assigned via innerHTML): the glyph strings are fixed, built-in markup.
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">${GLYPHS[name] ?? GLYPHS.keyboard}</svg>`;
+  span.replaceChildren(document.importNode(new DOMParser().parseFromString(svg, 'image/svg+xml').documentElement, true));
 }
 
 document.querySelectorAll<HTMLElement>('[data-glyph]').forEach((s) => fillGlyph(s, s.dataset.glyph!));

@@ -15,8 +15,12 @@
     "postinstall": "wxt prepare",
     "store:assets": "bun store/render-store-assets.ts",
     "release:check": "bun run compile && wxt zip && wxt zip -b firefox",
-    "submit:dry": "wxt submit --dry-run --chrome-api-version v2 --chrome-zip .output/*-chrome.zip",
-    "submit:chrome": "wxt submit --chrome-api-version v2 --chrome-zip .output/*-chrome.zip"
+    "submit:dry": "wxt submit --dry-run --chrome-api-version v2 --chrome-zip .output/*-chrome.zip --firefox-zip .output/*-firefox.zip --firefox-sources-zip .output/*-sources.zip",
+    "submit": "wxt submit --chrome-api-version v2 --chrome-zip .output/*-chrome.zip --firefox-zip .output/*-firefox.zip --firefox-sources-zip .output/*-sources.zip",
+    "submit:chrome:dry": "wxt submit --dry-run --chrome-api-version v2 --chrome-zip .output/*-chrome.zip",
+    "submit:chrome": "wxt submit --chrome-api-version v2 --chrome-zip .output/*-chrome.zip",
+    "submit:firefox:dry": "wxt submit --dry-run --firefox-zip .output/*-firefox.zip --firefox-sources-zip .output/*-sources.zip",
+    "submit:firefox": "wxt submit --firefox-zip .output/*-firefox.zip --firefox-sources-zip .output/*-sources.zip"
   },
   "devDependencies": {
     "@resvg/resvg-js": "2.6.2",

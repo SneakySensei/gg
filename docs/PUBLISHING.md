@@ -153,14 +153,14 @@ bun run release:check
 ```
 
 ```powershell
-bun run submit:dry
+bun run submit:chrome:dry
 ```
 
 ```powershell
 bun run submit:chrome
 ```
 
-`submit:dry` only checks authentication. `submit:chrome` uploads the new zip
+`submit:chrome:dry` only checks authentication. `submit:chrome` uploads the new zip
 and submits it for review.
 
 ## 10. After launch
