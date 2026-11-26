@@ -5,12 +5,9 @@ const CHROME_STORE_URL = '';
 (() => {
   if (CHROME_STORE_URL) document.querySelectorAll('.js-store').forEach((a) => { a.href = CHROME_STORE_URL; });
 
-  // Appearance window: Minimal while the pointer rests on it, Classic otherwise.
-  const frame = document.querySelector('#appearance .frame');
-  const win = frame && frame.querySelector('.look-win');
-  if (!win) return;
-  const name = win.querySelector('[data-look-name]');
-  const set = (look) => { win.dataset.look = look; name.textContent = look === 'minimal' ? 'Minimal' : 'Classic'; };
-  frame.addEventListener('pointerenter', () => set('minimal'));
-  frame.addEventListener('pointerleave', () => set('classic'));
+  // The preset cards pick like they do in GG's settings.
+  const cards = [...document.querySelectorAll('.look .preset')];
+  cards.forEach((card) => card.addEventListener('click', () => {
+    cards.forEach((c) => { const on = c === card; c.classList.toggle('active', on); c.setAttribute('aria-checked', String(on)); });
+  }));
 })();
