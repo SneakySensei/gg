@@ -37,7 +37,9 @@ const CHROME_STORE_URL = ''; // e.g. 'https://chromewebstore.google.com/detail/<
 
   // Hero: the settings splash choreography (.splash.play + gg-* keyframes), plus streak/sparks/ring.
   const hero = document.getElementById('hero');
-  if (!reduce) requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('play')));
+  // Opened in a background tab or with reduced motion: show the finished hero (the no-JS styles).
+  if (reduce || document.hidden) document.documentElement.classList.remove('js');
+  else { void hero.offsetWidth; hero.classList.add('play'); }
   const logoBtn = hero.querySelector('.logo-btn');
   const again = () => { logoBtn.classList.remove('again'); void logoBtn.offsetWidth; logoBtn.classList.add('again'); };
   logoBtn.addEventListener('click', again);
@@ -48,73 +50,4 @@ const CHROME_STORE_URL = ''; // e.g. 'https://chromewebstore.google.com/detail/<
     if (k && scrollY < innerHeight * .8) { k.classList.remove('hit'); void k.offsetWidth; k.classList.add('hit'); again(); }
   });
 
-  // Nav: mark the section in view, like the settings sidebar's active tab.
-  const links = [...document.querySelectorAll('.nav-btn[href^="#"]')];
-  const io = new IntersectionObserver((entries) => entries.forEach((en) => {
-    if (en.isIntersecting) links.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id));
-  }), { rootMargin: '-45% 0px -50% 0px' });
-  ['shortcuts', 'nudges', 'appearance', 'private'].forEach((id) => io.observe(document.getElementById(id)));
-
-  // Demo: hover a row, press E, the row archives, the flash toast shows, a new email arrives.
-  const mails = [
-    ['Dana Whit', 'Invoice for November', '9:41'], ['Build bot', 'main passed in 4m 12s', '9:30'],
-    ['Sam Ortiz', 'Lunch on Thursday?', '9:12'], ['Travel desk', 'Your itinerary is ready', '8:55'],
-    ['Lee Park', 'Re: design review', '8:20'], ['Newsletter', 'This week in tooling', 'Nov 25'],
-    ['Ana Costa', 'Contract draft v3', 'Nov 25'], ['Ops', 'Weekly uptime report', 'Nov 24'],
-  ];
-  const demo = document.getElementById('demo-archive');
-  const list = demo.querySelector('.rows');
-  const cursor = demo.querySelector('.cursor');
-  const keyE = demo.querySelector('.group-head kbd');
-  const flash = demo.querySelector('.flash');
-  const archiveRow = document.querySelector('.actions .row[data-k="e"]');
-  let next = 0;
-  const makeRow = (m) => { const li = document.createElement('li'); li.className = 'row mail'; li.innerHTML = `<span class="chk"></span><p class="row-label">${m[0]}</p><p class="row-desc">${m[1]}</p><time>${m[2]}</time>`; return li; };
-  for (let i = 0; i < 5; i++) list.append(makeRow(mails[next++ % mails.length]));
-  const point = (r) => { const b = demo.getBoundingClientRect(), rb = r.getBoundingClientRect(); cursor.style.transform = `translate(${rb.left - b.left + rb.width * .55}px, ${rb.top - b.top + 18}px)`; };
-  point(list.children[1]);
-
-  let running = false, visible = false, paused = false;
-  async function loop() {
-    if (running || reduce) return;
-    running = true;
-    while (visible && !paused) {
-      const r = list.children[1 + Math.floor(Math.random() * 3)];
-      point(r); await wait(750);
-      r.classList.add('hov'); await wait(450);
-      keyE.classList.add('down'); archiveRow.classList.add('lit'); await wait(160);
-      keyE.classList.remove('down'); r.classList.add('out'); flash.classList.add('on');
-      await wait(520); r.remove();
-      const n = makeRow(mails[next++ % mails.length]); n.classList.add('in'); list.append(n);
-      await wait(900); flash.classList.remove('on'); archiveRow.classList.remove('lit'); await wait(400);
-    }
-    running = false;
-  }
-  new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) loop(); }, { threshold: .3 }).observe(demo);
-  if (reduce) list.children[1].classList.add('hov');
-  else {
-    const pb = document.createElement('button');
-    pb.type = 'button'; pb.className = 'pause';
-    const set = () => { pb.setAttribute('aria-label', paused ? 'Play animation' : 'Pause animation'); pb.innerHTML = '<span class="glyph"></span>'; fill(pb.firstChild, paused ? 'play' : 'pause'); };
-    set();
-    pb.addEventListener('click', () => { paused = !paused; set(); if (!paused) loop(); });
-    demo.querySelector('.group-head').append(pb);
-  }
-
-  // Demo: appearance presets and switches, the same rules as the settings page.
-  const look = document.getElementById('look');
-  const presets = [...look.querySelectorAll('.preset')];
-  const toggles = [...look.querySelectorAll('input[data-hide]')];
-  const status = document.getElementById('preset-status');
-  const render = () => {
-    toggles.forEach((t) => look.classList.toggle('hide-' + t.dataset.hide, t.checked));
-    const on = toggles.filter((t) => t.checked).length;
-    const active = on === 0 ? 'classic' : on === toggles.length ? 'minimal' : 'custom';
-    presets.forEach((p) => { const a = p.dataset.preset === active; p.classList.toggle('active', a); p.setAttribute('aria-checked', String(a)); });
-    status.replaceChildren();
-    if (active === 'custom') { const g = document.createElement('span'); g.className = 'glyph'; fill(g, 'info'); status.append(g, 'Custom: your switches no longer match a preset.'); }
-  };
-  presets.forEach((p) => p.addEventListener('click', () => { toggles.forEach((t) => { t.checked = p.dataset.preset === 'minimal'; }); render(); }));
-  toggles.forEach((t) => t.addEventListener('change', render));
-  render();
 })();
