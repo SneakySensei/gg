@@ -69,11 +69,15 @@
   .look .group:last-child { margin-bottom: 0; }
   @media (max-width: 639px) { .ext .row .switch { display: none; } }
   #contact .close__word { padding-top: .2em; overflow: visible; }
-  @media (max-width: 1279px) { .hero__art .ext .row:nth-child(n+5) { display: none; } }
   @media (max-width: 639px) { .hero__art .ext .row:nth-child(n+3) { display: none; } .hero__art .ext .row { grid-template-columns: auto minmax(0, 1fr); } }
   .btn:is(.js-store, .js-store-ff) { gap: 10px; }
   .btn--primary:is(.js-store, .js-store-ff), .btn--primary:is(.js-store, .js-store-ff):hover { color: #fff; }
   .store-icon { width: 20px; height: 20px; flex: none; }
+  /* hero art: the settings card centred on its lit panel at every width, no bleed, no empty corner */
+  .hero__art { flex: none !important; height: auto !important; min-height: 0 !important; max-height: none !important; aspect-ratio: auto !important; display: grid; place-items: center; padding: clamp(20px, 4vw, 56px) !important; align-self: center; }
+  .hero__art .ext .row { grid-template-columns: 64px minmax(0, 1fr) auto; }
+  @media (min-width: 900px) and (max-width: 1199px) { .hero__art .ext .row:nth-child(n+6) { display: none; } }
+  .hero__art .ly-piece--main { position: static !important; inset: auto !important; width: 100% !important; max-width: 560px; transform: none !important; }
 </style>
 </head>
 <body>
