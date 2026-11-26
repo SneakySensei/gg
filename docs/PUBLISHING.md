@@ -50,7 +50,7 @@ even if the data never leaves the browser. GG reads email text (instant copy,
 quick quote), your address (copy link) and your keystrokes, so it needs one.
 
 - The policy is ready: [`store/privacy-policy.md`](../store/privacy-policy.md).
-  The contact line is me+gg@snehil.dev.
+  The contact line is me@snehil.dev.
 - It is published by the website (see [Website](#website) below) at
   **`https://gg.snehil.dev/privacy.html`**. `site/privacy.html` mirrors
   `store/privacy-policy.md`; keep the two in sync.

@@ -58,7 +58,7 @@ GG is an independent project and is not affiliated with, endorsed by or sponsore
 | Marquee promo tile 1400×560 | `promo-marquee-1400x560.png` | Optional |
 
 **Official URL / homepage:** your repo or project page (optional)
-**Support URL:** mailto:me+gg@snehil.dev (or the gg repo's Issues page)
+**Support URL:** mailto:me@snehil.dev (or the gg repo's Issues page)
 
 ---
 
