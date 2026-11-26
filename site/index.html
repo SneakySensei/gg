@@ -81,6 +81,13 @@
   .section-head--split > .close__btns { display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: center; flex: none; margin: 0; }
   .close__btns .btn { white-space: nowrap; }
   @media (max-width: 639px) { .section-head--split > .close__btns { width: 100%; flex-direction: column; align-items: stretch; } }
+  /* phone: sections take their content's height, no screen-tall minimum */
+  @media (max-width: 639px) {
+    html main > :is(section, .section), html footer.closing { min-height: 0 !important; height: auto !important; }
+    html main > :is(section, .section):not(.hero) { padding-block: 64px; }
+    html .hero { padding-bottom: 32px; }
+    .feats { margin-top: var(--s-5); row-gap: var(--s-6); }
+  }
 </style>
 </head>
 <body>
