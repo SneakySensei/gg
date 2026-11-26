@@ -266,7 +266,7 @@ function renderAppearance() {
 
 // ---- Theme: System (prefers-color-scheme) / Light / Dark, remembered.
 type ThemeChoice = 'system' | 'light' | 'dark';
-const THEME_KEY = 'gmailPlusTheme';
+const THEME_KEY = 'ggTheme';
 
 function applyTheme(choice: ThemeChoice) {
   if (choice === 'system') document.documentElement.removeAttribute('data-theme');

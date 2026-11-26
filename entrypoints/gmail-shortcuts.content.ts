@@ -34,7 +34,7 @@ export default defineContentScript({
       settings = d.settings ?? {};
       applySettings();
     });
-    window.postMessage({ source: 'gmail-plus-engine', type: 'request-settings' }, location.origin);
+    window.postMessage({ source: 'gg-engine', type: 'request-settings' }, location.origin);
 
     // ---- Key matching
     const SEQUENCE_MS = 1200;

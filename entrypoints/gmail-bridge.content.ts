@@ -25,7 +25,7 @@ export default defineContentScript({
     };
 
     window.addEventListener('message', (e) => {
-      if (e.source === window && e.data?.source === 'gmail-plus-engine' && e.data?.type === 'request-settings') {
+      if (e.source === window && e.data?.source === 'gg-engine' && e.data?.type === 'request-settings') {
         void push();
       }
     });

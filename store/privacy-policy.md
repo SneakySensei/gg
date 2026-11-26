@@ -73,7 +73,7 @@ with a new "Last updated" date.
 
 ## Contact
 
-Questions about this policy: _[your support email or issues URL]_
+Questions about this policy: [me+gg@snehil.dev](mailto:me+gg@snehil.dev)
 
 ---
 

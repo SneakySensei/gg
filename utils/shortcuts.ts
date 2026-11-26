@@ -3,8 +3,8 @@
  * Modelled after CMDK's shortcut settings (ids, groups, keys, defaults).
  */
 
-export const SETTINGS_KEY = 'gmailPlusShortcutSettings';
-export const MASTER_KEY = 'gmailPlusShortcutsEnabled';
+export const SETTINGS_KEY = 'ggShortcutSettings';
+export const MASTER_KEY = 'ggShortcutsEnabled';
 /** Global kill switch: false turns off every GG feature (shortcuts, nudges, appearance). */
 export const GLOBAL_KEY = 'ggEnabled';
 /** storage.local: accounts GG has already turned Gmail's keyboard shortcuts on for. */
@@ -205,7 +205,7 @@ export const SHORTCUT_GROUPS: ShortcutGroup[] = [
 ];
 
 /** Message protocol between the isolated-world bridge and the MAIN-world engine. */
-export const BRIDGE_SOURCE = 'gmail-plus-bridge';
+export const BRIDGE_SOURCE = 'gg-bridge';
 export interface BridgeMessage {
   source: typeof BRIDGE_SOURCE;
   type: 'settings';

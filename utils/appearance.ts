@@ -3,7 +3,7 @@
  * toggling a class on <html>, which assets/appearance.css styles.
  */
 
-export const APPEARANCE_KEY = 'gmailPlusAppearance';
+export const APPEARANCE_KEY = 'ggAppearance';
 
 export const APPEARANCE_IDS = [
   'hideSupportButton',
