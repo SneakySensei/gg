@@ -8,7 +8,8 @@ export const MASTER_KEY = 'ggShortcutsEnabled';
 /** Global kill switch: false turns off every GG feature (shortcuts, nudges, appearance). */
 export const GLOBAL_KEY = 'ggEnabled';
 /** storage.local: accounts GG has already turned Gmail's keyboard shortcuts on for. */
-export const ONBOARDED_KEY = 'ggOnboardedAccounts';
+// v2: v1's setup could switch Gmail's shortcuts off (it trusted a hidden form value); a new key re-runs it once per account.
+export const ONBOARDED_KEY = 'ggOnboardedAccounts.v2';
 
 export const SHORTCUT_IDS = [
   // General settings

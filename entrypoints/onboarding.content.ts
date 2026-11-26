@@ -45,6 +45,11 @@ export default defineContentScript({
 
     radio.click();
     await sleep(150);
+    if (!radio.checked) {
+      note.done('Couldn’t turn on Gmail’s keyboard shortcuts. Turn them on in Settings → General.', true);
+      location.hash = returnTo;
+      return;
+    }
     const save = await waitFor(findSaveButton, 5_000);
     if (!save) {
       note.done('Turned on keyboard shortcuts. Click “Save Changes” at the bottom to finish.', true);
@@ -55,18 +60,30 @@ export default defineContentScript({
   },
 });
 
-/** The "Keyboard shortcuts on" radio in Settings → General. */
+/** The visible text that labels a radio button. */
+function labelOf(input: HTMLInputElement): string {
+  const own = input.labels?.[0]?.textContent;
+  if (own) return own.trim();
+  // Gmail sometimes puts the text in a sibling rather than a <label for>.
+  const next = input.nextElementSibling?.textContent ?? input.parentElement?.textContent ?? '';
+  return next.trim();
+}
+
+/**
+ * The "Keyboard shortcuts on" radio in Settings → General.
+ *
+ * Chosen only by its visible label, never by Gmail's hidden form values
+ * (which aren't documented): an earlier version trusted value="0" as "on" and
+ * could switch shortcuts off. To act, both options must be found, one labelled
+ * "…on" and the other "…off", in the same radio group; otherwise GG does nothing.
+ */
 function findShortcutsOnRadio(): HTMLInputElement | null {
-  // Gmail's form field for this setting; value 0 is "on".
-  const byName = document.querySelector<HTMLInputElement>('input[type="radio"][name="bx_hs"][value="0"]');
-  if (byName) return byName;
-  for (const label of document.querySelectorAll('label')) {
-    if (!/^\s*keyboard shortcuts on\s*$/i.test(label.textContent ?? '')) continue;
-    const id = label.getAttribute('for');
-    const input = (id && document.getElementById(id)) || label.parentElement?.querySelector('input[type="radio"]');
-    if (input instanceof HTMLInputElement) return input;
-  }
-  return null;
+  const radios = Array.from(document.querySelectorAll<HTMLInputElement>('input[type="radio"]'));
+  const on = radios.find((r) => /^keyboard shortcuts on$/i.test(labelOf(r)));
+  if (!on || !on.name) return null;
+  const group = radios.filter((r) => r.name === on.name);
+  const hasOff = group.some((r) => r !== on && /^keyboard shortcuts off$/i.test(labelOf(r)));
+  return group.length === 2 && hasOff ? on : null;
 }
 
 function findSaveButton(): HTMLElement | null {
