@@ -32,3 +32,6 @@ web-ext.config.ts
 # Chrome Web Store / AMO API credentials (never commit)
 .env.submit
 *.service-account.json
+
+# tasteskill checker state
+.taste-skill/
