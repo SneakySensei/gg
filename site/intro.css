@@ -15,6 +15,7 @@
 .intro.is-flying .intro__glow { transition: opacity .3s; opacity: 0; animation: none; }
 .intro.is-flying .intro__logo svg { filter: none; transition: filter .4s; }
 html.intro-on .nav__logo img { opacity: 0; }
+html { scrollbar-gutter: stable; }
 html.intro-on body { overflow: hidden; }
 html.intro-on:not(.intro-mounted) body { visibility: hidden; }
 @keyframes in-glow { to { opacity: 1; scale: 1; } }
