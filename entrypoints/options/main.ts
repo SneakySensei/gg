@@ -365,15 +365,35 @@ function runSplash() {
   cta.addEventListener('click', () => {
     // Start onboarding: Gmail turns on its keyboard shortcuts for the account it opens.
     void browser.tabs.create({ url: 'https://mail.google.com/mail/u/0/#inbox', active: false });
-    splash.classList.add('leaving');
-    document.documentElement.classList.remove('welcoming');
-    document.querySelector('.layout')!.classList.add('reveal');
+    const html = document.documentElement;
     splashOpen = false;
     showTab('general');
-    setTimeout(() => {
+    html.classList.remove('welcoming');
+    html.classList.add('welcome-flying');
+    document.querySelector('.layout')!.classList.add('reveal');
+    splash.classList.add('leaving');
+
+    let finished = false;
+    const finish = () => {
+      if (finished) return;
+      finished = true;
       splash.remove();
+      html.classList.remove('welcome-flying');
       flash('Gmail opened in a new tab to finish setup', 'mail');
-    }, reduce ? 0 : 700);
+    };
+    // The splash logo flies into the sidebar logo, as on gg.snehil.dev.
+    const mark = splash.querySelector<HTMLElement>('.splash-mark');
+    const target = document.querySelector<SVGElement>('.brand-logo');
+    if (reduce || !mark || !target) return finish();
+    const a = mark.getBoundingClientRect();
+    const b = target.getBoundingClientRect();
+    mark
+      .animate(
+        [{ transform: 'none' }, { transform: `translate(${b.left - a.left}px, ${b.top - a.top}px) scale(${b.width / a.width})` }],
+        { duration: 750, easing: 'cubic-bezier(.65,0,.25,1)', fill: 'forwards' },
+      )
+      .finished.then(finish, finish);
+    setTimeout(finish, 1200); // never leave the splash up
   }, { once: true });
 }
 

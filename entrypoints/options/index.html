@@ -14,26 +14,22 @@
     <div id="splash" class="splash" hidden>
       <div class="splash-glow" aria-hidden="true"></div>
       <div class="splash-stage">
-        <svg class="splash-logo" viewBox="0 0 128 128" width="112" height="112" aria-hidden="true">
-          <rect class="sl-tile" width="128" height="128" rx="30" fill="#161618"/>
-          <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <path class="sl-key" pathLength="1" d="M72 28 H44 A16 16 0 0 0 28 44 V84 A16 16 0 0 0 44 100 H84 A16 16 0 0 0 100 84 V56" stroke="#f5f5f3" stroke-width="8"/>
-            <path class="sl-arrow" pathLength="1" d="M56 72 L100 28" stroke="#398eff" stroke-width="9"/>
-            <path class="sl-head" pathLength="1" d="M74 28 H100 V54" stroke="#398eff" stroke-width="9"/>
-          </g>
-        </svg>
-        <h1 class="splash-title">GG</h1>
-        <p class="splash-tag" aria-label="Greater experience for Gmail™">
-          <span>Greater</span> <span>experience</span> <span>for</span> <span>Gmail&trade;</span>
-        </p>
-        <p class="splash-desc">Gmail's keyboard shortcuts, sharpened, and a calmer inbox around them. Archive, reply and move on without reaching for the mouse.</p>
-        <ul class="splash-points">
-          <li><span class="glyph" data-glyph="keyboard"></span>Faster shortcuts</li>
-          <li><span class="glyph" data-glyph="panels"></span>A cleaner Gmail</li>
-          <li><span class="glyph" data-glyph="burst"></span>Inbox zero, sooner</li>
-        </ul>
+        <div class="splash-mark" aria-hidden="true">
+          <svg class="splash-logo" viewBox="0 0 128 128">
+            <rect width="128" height="128" rx="30" fill="#161618"/>
+            <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path class="sl-key" pathLength="1" d="M72 28 H44 A16 16 0 0 0 28 44 V84 A16 16 0 0 0 44 100 H84 A16 16 0 0 0 100 84 V56" stroke="#f5f5f3" stroke-width="8"/>
+              <path class="sl-streak" d="M40 88 L70 58" stroke="#398eff" stroke-width="3"/>
+              <path class="sl-arrow" pathLength="1" d="M56 72 L100 28" stroke="#398eff" stroke-width="9"/>
+              <path class="sl-head" pathLength="1" d="M74 28 H100 V54" stroke="#398eff" stroke-width="9"/>
+            </g>
+          </svg>
+          <span class="splash-ring"></span>
+          <span class="splash-spark"><i style="--x:34px;--y:-30px"></i><i style="--x:44px;--y:2px"></i><i style="--x:8px;--y:-46px"></i><i style="--x:26px;--y:22px"></i><i style="--x:-16px;--y:-36px"></i></span>
+        </div>
+        <h1 class="splash-title">Gmail&trade;, on the keyboard.</h1>
+        <p class="splash-desc">We&rsquo;ll turn on Gmail&rsquo;s shortcuts for each account you open.</p>
         <button id="get-started" class="splash-cta" type="button">Get started<span class="glyph" data-glyph="arrow"></span></button>
-        <p class="splash-fine">GG will open Gmail and turn on its keyboard shortcuts for each account you use.</p>
       </div>
     </div>
 

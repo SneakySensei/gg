@@ -35,3 +35,6 @@ web-ext.config.ts
 
 # tasteskill checker state
 .taste-skill/
+
+# raw store screenshots (may show account details)
+store/screenshots/source/
