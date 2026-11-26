@@ -67,6 +67,8 @@
   #contact .close__word { padding-top: .2em; overflow: visible; }
   @media (max-width: 1279px) { .hero__art .ext .row:nth-child(n+5) { display: none; } }
   @media (max-width: 639px) { .hero__art .ext .row:nth-child(n+3) { display: none; } .hero__art .ext .row { grid-template-columns: auto minmax(0, 1fr); } }
+  .btn:is(.js-store, .js-store-ff), .btn:is(.js-store, .js-store-ff):hover { color: #fff; gap: 10px; }
+  .store-icon { width: 20px; height: 20px; flex: none; }
 </style>
 </head>
 <body>
@@ -86,7 +88,7 @@
       <div class="nav__item"><a class="nav__link" href="#questions">Questions</a></div>
     </nav>
     <div class="nav__actions">
-      <a class="btn btn--primary js-store" href="https://chromewebstore.google.com/search/GG%20Greater%20experience">Add to Chrome</a>
+      <a class="btn btn--primary js-store" href="https://chromewebstore.google.com/search/GG%20Greater%20experience"><img class="store-icon" src="assets/icons/chrome.svg" alt="" width="20" height="20">Add to Chrome</a>
     </div>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menu">
       <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -100,7 +102,7 @@
       <div class="hero__text span-5">
         <h1 id="hero-h">A keyboard shortcut extension for Gmail™</h1>
         <p class="hero__lead">GG puts Gmail™ on the keyboard. Point at any email and act on it with one key, learn each shortcut as you hover, and clear away the buttons you never use.</p>
-        <div class="btn-row"><a class="btn btn--primary js-store" href="https://chromewebstore.google.com/search/GG%20Greater%20experience">Add to Chrome<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a><a class="btn btn--secondary" href="#features">See the features</a></div>
+        <div class="btn-row"><a class="btn btn--primary js-store" href="https://chromewebstore.google.com/search/GG%20Greater%20experience"><img class="store-icon" src="assets/icons/chrome.svg" alt="" width="20" height="20">Add to Chrome<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a><a class="btn btn--primary js-store-ff" href="https://addons.mozilla.org/firefox/search/?q=GG%20Greater%20experience"><img class="store-icon" src="assets/icons/firefox.svg" alt="" width="20" height="20">Add to Firefox<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a></div>
         <p class="hero__proof">Free forever. Runs only on mail.google.com.</p>
       </div>
       <div class="hero__art span-6 start-7" role="img" aria-label="GG settings: the Email Actions shortcuts, each with its key and its own switch">
@@ -143,7 +145,7 @@
           <div class="faq__item"><h3>Which Gmail settings does it change?</h3><p>Once per account it turns on Gmail's own keyboard shortcuts in Settings, General. Nothing else changes.</p></div>
           <div class="faq__item"><h3>Can I turn off single shortcuts in the extension?</h3><p>Yes. Every shortcut and every part of the Minimal look has its own switch.</p></div>
           <div class="faq__item"><h3>Do Gmail's own shortcuts still work?</h3><p>Yes. GG turns them on for you and adds its own beside them.</p></div>
-          <div class="faq__item"><h3>Which browsers run the extension?</h3><p>Chrome, and other browsers that install extensions from the Chrome Web Store.</p></div>
+          <div class="faq__item"><h3>Which browsers run the extension?</h3><p>Chrome and Firefox, and other browsers that install extensions from the Chrome Web Store.</p></div>
         </div>
       </div>
     </div>
@@ -154,8 +156,8 @@
   <div class="wrap">
     <div class="closing__cta close--word">
       <div class="section-head--split">
-        <div><h2 id="close-h">Add GG to Chrome</h2><p class="t-lead">Free, and set up the first time you open Gmail.</p></div>
-        <a class="btn btn--primary js-store" href="https://chromewebstore.google.com/search/GG%20Greater%20experience">Add to Chrome<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+        <div><h2 id="close-h">Add GG to your browser</h2><p class="t-lead">Free, and set up the first time you open Gmail.</p></div>
+        <a class="btn btn--primary js-store" href="https://chromewebstore.google.com/search/GG%20Greater%20experience"><img class="store-icon" src="assets/icons/chrome.svg" alt="" width="20" height="20">Add to Chrome<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a><a class="btn btn--primary js-store-ff" href="https://addons.mozilla.org/firefox/search/?q=GG%20Greater%20experience"><img class="store-icon" src="assets/icons/firefox.svg" alt="" width="20" height="20">Add to Firefox<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
       </div>
       <p class="close__word" aria-hidden="true">GG</p>
     </div>
