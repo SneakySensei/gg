@@ -31,7 +31,7 @@ Build / package: `bun run build`, `bun run build:firefox`, `bun run zip`, `bun r
 
 ## Branding
 
-- `branding/logo.svg` is the source logo (a keyboard key printed with "GG"). After editing it, run `bun branding/render-icons.ts` to regenerate `public/icon/*.png` and `branding/logo-512.png`.
+- `branding/logo.svg` is the source logo (a key outline with an arrow shooting out of its corner). After editing it, run `bun branding/render-icons.ts` to regenerate `public/icon/*.png` and `branding/logo-512.png`.
 - Keep the store title in the form "GG – … for Gmail™" and include "Gmail is a trademark of Google LLC." in the description (Google's trademark guidelines allow "for Gmail™" only as a compatibility reference).
 
 ## Publishing

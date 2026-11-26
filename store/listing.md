@@ -96,4 +96,4 @@ GG does not collect or transmit any user data. It does, however, *handle* some d
 - I do not use or transfer user data for purposes that are unrelated to my item's single purpose.
 - I do not use or transfer user data to determine creditworthiness or for lending purposes.
 
-**Privacy policy URL:** the public URL where you host `store/privacy-policy.md` (see docs/PUBLISHING.md).
+**Privacy policy URL:** `https://gg.snehil.dev/privacy.html` (source: `site/privacy.html`).
